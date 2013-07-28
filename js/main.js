@@ -21,10 +21,15 @@ var CountryPopulation;
         }
     }; 
 
+    CountryPopulation.headers = [];
+
+    CountryPopulation.data = [];
+
     CountryPopulation.bindings = {
         percentage:ko.observable(0),
         percentageTotal: 0,
-        poblacionTotal:ko.observable(0)
+        poblacionTotal:ko.observable(0),
+        cantSelected:ko.observable(0)
     };
 
     CountryPopulation.convertSliderValue = function(v){
@@ -32,11 +37,13 @@ var CountryPopulation;
     }
 
     //Remove this, just to test
-    CountryPopulation._sumarize = function(){
+    CountryPopulation.retrieveData = function(){
         d3.text("/data/lanacion-censo.csv", function(datasetText) {
-          var parsedCSV = d3.csv.parseRows(datasetText);
+          CountryPopulation.data = d3.csv.parseRows(datasetText);
+          CountryPopulation.headers = CountryPopulation.data[0]; 
+          CountryPopulation.data = CountryPopulation.data.slice(1,CountryPopulation.data.length);
           var total = 0;
-          parsedCSV.forEach(function (e) {
+          CountryPopulation.data.forEach(function (e) {
             var n = parseInt(e[19]);
             if(!isNaN(n)){
               total = total + n;
@@ -63,12 +70,24 @@ var CountryPopulation;
         //Init map
         d3.populationMap('map-container',$('#map-container').width());
 
-        //Testing Data
-        CountryPopulation._sumarize();
+        //Parsing Data
+        CountryPopulation.retrieveData();
     };
 
     CountryPopulation.slideStopHandler = function (data) {
-        CountryPopulation.bindings.percentage(CountryPopulation.convertSliderValue(data.value));
+        var percentage = CountryPopulation.convertSliderValue(data.value);
+        CountryPopulation.bindings.percentage(percentage);
+        CountryPopulation.calculatePopulation(percentage);
+    };
+
+    CountryPopulation.getHeaderIndex = function (element) {
+        return (CountryPopulation.headers.indexOf(element)>-1)?CountryPopulation.headers.indexOf(element):false;
+    };
+
+    CountryPopulation.calculatePopulation = function (percentage) {
+        var cant = Math.round((CountryPopulation.bindings.poblacionTotal()*percentage)/100);
+        CountryPopulation.bindings.cantSelected(cant);
+        console.log(cant);
     };
 
 })(window, document,jQuery, d3, ko);
