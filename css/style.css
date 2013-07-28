@@ -1,0 +1,35 @@
+
+/* MAP */
+g.departamentos path {
+	stroke: #DDD;
+	stroke-width: 1px;
+	fill: none;
+}
+
+g.provincias path {
+	stroke: #DDD;
+	fill: none;
+	stroke-width: 1px;
+	stroke-linejoin: round;
+}
+
+
+/* SLIDER */
+.slider.slider-vertical {
+	height: 700px;
+}
+
+.slider-selection {
+	background-color: steelblue;
+	background-image: none;
+}
+
+.slider-handle {
+	width: 30px;
+	height: 30px;
+}
+
+.slider.slider-vertical .slider-handle {
+	margin-left: -10px;
+	margin-top: -15px;
+}
