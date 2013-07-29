@@ -37,12 +37,18 @@ var CountryPopulation;
         percentageSupSelected:0
     };
 
+    CountryPopulation.getLocation = function(href) {
+        var l = document.createElement("a");
+        l.href = href;
+        return l;
+    };
+
     CountryPopulation.convertSliderValue = function(v){
         return 100-v;
     }
 
     CountryPopulation.retrieveData = function(){
-        d3.text("/data/lanacion-censo.csv", function(datasetText) {
+        d3.text(window.location.pathname+"data/lanacion-censo.csv", function(datasetText) {
           CountryPopulation.data = d3.csv.parseRows(datasetText);
           CountryPopulation.headers = CountryPopulation.data[0]; 
           CountryPopulation.data = CountryPopulation.data.slice(1,CountryPopulation.data.length);
@@ -133,16 +139,18 @@ var CountryPopulation;
         var ids = [];
         var names = [];
         var sup = 0;
-        $.each(CountryPopulation.data,function(i,e){
-            if(!isNaN(parseInt(e[index]))){
-                temp += parseInt(e[index]);
-                ids.push(e[indexId]);
-                sup += parseInt((e[indexSuperficie]/100000000000000000));
-                if( max < temp ){
-                    return false;
+        if(max>0){
+            $.each(CountryPopulation.data,function(i,e){
+                if(!isNaN(parseInt(e[index]))){
+                    temp += parseInt(e[index]);
+                    ids.push(e[indexId]);
+                    sup += parseInt((e[indexSuperficie]/100000000000000000));
+                    if( max < temp ){
+                        return false;
+                    }
                 }
-            }
-        });
+            });
+        }
         CountryPopulation.bindings.supSelected(sup);
         CountryPopulation.updateMap(ids);
     };

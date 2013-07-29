@@ -36,7 +36,29 @@ small {
 	text-transform: none
 }
 /* MAP */
-g.departamentos path {
+svg{
+	position: absolute;
+}
+
+svg.poblacion-mini {
+	top: 350px;
+	right: 0;
+}
+
+.mini-mapa-bg{
+	fill:none;
+	stroke-width:2px;
+	stroke:white;
+}
+
+rect.parte-ampliada {
+	fill:none;
+	stroke-width:2px;
+	stroke:white;	
+}
+
+g.departamentos path,
+g.amba path {
 	stroke: #E1e1e1;
 	stroke-width: 1px;
 	fill: #EEE;
@@ -49,11 +71,12 @@ g.provincias path {
 	stroke-linejoin: round;
 }
 
-g.departamentos path.selected {
+g.departamentos path.selected,
+g.amba path.selected {
 	fill:#25c5de;
 	stroke:#25c5de;
 }
-.Poblacion {
+.poblacion {
 	  -webkit-filter: drop-shadow( 1px 2px 1px rgba(0,0,0,0.6) );
             filter: drop-shadow( 1px 2px 1px rgba(0,0,0,0.6)); /* Same syntax as box-shadow */
 }
