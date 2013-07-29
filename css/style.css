@@ -45,16 +45,31 @@ svg.poblacion-mini {
 	right: 0;
 }
 
+.poblacion-mini {
+	width: 225px; height: 225px;
+	position: absolute;
+	border-radius: 100%;
+	
+	box-shadow: 0 0 0 7px rgba(255, 211, 0, 0.9), 
+	0 0 7px 7px rgba(0, 0, 0, 0.25), 
+	inset 0 0 40px 20px rgba(0, 0, 0, 0.3);
+	background: rgba(0,0,0,0.3);
+	padding:12px;	
+}
+.mini-mapa {
+	background: #ffd300;
+}
+
 .mini-mapa-bg{
 	fill:none;
 	stroke-width:2px;
-	stroke:white;
+	stroke:none;
 }
 
 rect.parte-ampliada {
 	fill:none;
 	stroke-width:2px;
-	stroke:white;	
+	stroke:#ffd300;	
 }
 
 g.departamentos path,
