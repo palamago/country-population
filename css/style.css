@@ -16,7 +16,9 @@ h2 {
 h2.superficie {
 	color:#f7489e;
 }
-
+h2.porcentaje {
+	color:#a3c725;
+}
 hr {
 
 border-top: 1px solid rgba(0,0,0,0.2);
@@ -35,23 +37,26 @@ small {
 }
 /* MAP */
 g.departamentos path {
-	stroke: #DDD;
+	stroke: #E1e1e1;
 	stroke-width: 1px;
-	fill: #DDD;
+	fill: #EEE;
 }
 
 g.provincias path {
-	stroke: steelblue;
+	stroke: rgba(0,0,0,0.2);
 	fill: none;
 	stroke-width: 1px;
 	stroke-linejoin: round;
 }
 
 g.departamentos path.selected {
-	fill:steelblue;
-	stroke:steelblue;
+	fill:#e94495;
+	stroke:#e94495;
 }
-
+.Poblacion {
+	  -webkit-filter: drop-shadow( 1px 2px 1px rgba(0,0,0,0.6) );
+            filter: drop-shadow( 1px 2px 1px rgba(0,0,0,0.6)); /* Same syntax as box-shadow */
+}
 /* SLIDER */
 #slider{
 	display: none;
