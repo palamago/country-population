@@ -120,12 +120,11 @@ d3.populationMap = function(containerId,width) {
           .attr("d", path)
           .attr("class", "departamento");
 
-        mapa_svg.append("rect")
+        mapa_svg.append("circle")
           .attr("class", "parte-ampliada")
-          .attr("width",18)
-          .attr("height",18)
-          .attr("x",305)
-          .attr("y",205);
+          .attr("r",15)
+          .attr("cx",312)
+          .attr("cy",218);
 
         //mini mapa
         mini_mapa_svg.append("rect")
