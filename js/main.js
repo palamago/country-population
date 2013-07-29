@@ -139,16 +139,18 @@ var CountryPopulation;
         var ids = [];
         var names = [];
         var sup = 0;
-        $.each(CountryPopulation.data,function(i,e){
-            if(!isNaN(parseInt(e[index]))){
-                temp += parseInt(e[index]);
-                ids.push(e[indexId]);
-                sup += parseInt((e[indexSuperficie]/100000000000000000));
-                if( max < temp ){
-                    return false;
+        if(max>0){
+            $.each(CountryPopulation.data,function(i,e){
+                if(!isNaN(parseInt(e[index]))){
+                    temp += parseInt(e[index]);
+                    ids.push(e[indexId]);
+                    sup += parseInt((e[indexSuperficie]/100000000000000000));
+                    if( max < temp ){
+                        return false;
+                    }
                 }
-            }
-        });
+            });
+        }
         CountryPopulation.bindings.supSelected(sup);
         CountryPopulation.updateMap(ids);
     };
