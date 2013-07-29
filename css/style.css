@@ -6,7 +6,7 @@ body {
 h2 {
 	font-weight: bold;
 	margin: 0;
-	color:#25c5de;
+	color:#a3c725;
 	text-shadow:0 1px 1px rgba(0,0,0,0.3);
 }
 
@@ -14,10 +14,10 @@ h2 {
 	margin-bottom:20px;
 }
 h2.superficie {
-	color:#f7489e;
+	color:#25c5de;
 }
 h2.porcentaje {
-	color:#a3c725;
+	color:#f7489e;
 }
 hr {
 
@@ -50,8 +50,8 @@ g.provincias path {
 }
 
 g.departamentos path.selected {
-	fill:#e94495;
-	stroke:#e94495;
+	fill:#25c5de;
+	stroke:#25c5de;
 }
 .Poblacion {
 	  -webkit-filter: drop-shadow( 1px 2px 1px rgba(0,0,0,0.6) );
