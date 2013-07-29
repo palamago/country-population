@@ -6,7 +6,7 @@ body {
 h2 {
 	font-weight: bold;
 	margin: 0;
-	color:#25c5de;
+	color:#a3c725;
 	text-shadow:0 1px 1px rgba(0,0,0,0.3);
 }
 
@@ -14,9 +14,11 @@ h2 {
 	margin-bottom:20px;
 }
 h2.superficie {
+	color:#25c5de;
+}
+h2.porcentaje {
 	color:#f7489e;
 }
-
 hr {
 
 border-top: 1px solid rgba(0,0,0,0.2);
@@ -57,13 +59,13 @@ rect.parte-ampliada {
 
 g.departamentos path,
 g.amba path {
-	stroke: #DDD;
+	stroke: #E1e1e1;
 	stroke-width: 1px;
-	fill: #DDD;
+	fill: #EEE;
 }
 
 g.provincias path {
-	stroke: steelblue;
+	stroke: rgba(0,0,0,0.2);
 	fill: none;
 	stroke-width: 1px;
 	stroke-linejoin: round;
@@ -71,10 +73,13 @@ g.provincias path {
 
 g.departamentos path.selected,
 g.amba path.selected {
-	fill:steelblue;
-	stroke:steelblue;
+	fill:#25c5de;
+	stroke:#25c5de;
 }
-
+.poblacion {
+	  -webkit-filter: drop-shadow( 1px 2px 1px rgba(0,0,0,0.6) );
+            filter: drop-shadow( 1px 2px 1px rgba(0,0,0,0.6)); /* Same syntax as box-shadow */
+}
 /* SLIDER */
 #slider{
 	display: none;
