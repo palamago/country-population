@@ -34,7 +34,29 @@ small {
 	text-transform: none
 }
 /* MAP */
-g.departamentos path {
+svg{
+	position: absolute;
+}
+
+svg.poblacion-mini {
+	top: 350px;
+	right: 0;
+}
+
+.mini-mapa-bg{
+	fill:none;
+	stroke-width:2px;
+	stroke:white;
+}
+
+rect.parte-ampliada {
+	fill:none;
+	stroke-width:2px;
+	stroke:white;	
+}
+
+g.departamentos path,
+g.amba path {
 	stroke: #DDD;
 	stroke-width: 1px;
 	fill: #DDD;
@@ -47,7 +69,8 @@ g.provincias path {
 	stroke-linejoin: round;
 }
 
-g.departamentos path.selected {
+g.departamentos path.selected,
+g.amba path.selected {
 	fill:steelblue;
 	stroke:steelblue;
 }
