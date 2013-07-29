@@ -1,20 +1,27 @@
-
 /* MAP */
 g.departamentos path {
 	stroke: #DDD;
 	stroke-width: 1px;
-	fill: none;
+	fill: #DDD;
 }
 
 g.provincias path {
-	stroke: #DDD;
+	stroke: steelblue;
 	fill: none;
 	stroke-width: 1px;
 	stroke-linejoin: round;
 }
 
+g.departamentos path.selected {
+	fill:steelblue;
+	stroke:steelblue;
+}
 
 /* SLIDER */
+#slider{
+	display: none;
+}
+
 .slider.slider-vertical {
 	height: 700px;
 }
@@ -34,7 +41,21 @@ g.provincias path {
 	margin-top: -15px;
 }
 
-.selected {
-	fill:red;
-	stroke: red;
+
+/* MAIN */
+#main-container{
+	min-height: 700px;
+}
+
+#main-container .col-lg-1{
+	margin: 20px 0px;
+}
+
+.footer {
+	border-top: 1px solid #DDD;
+	margin-top: 30px;
+	padding-top: 29px;
+	padding-bottom: 30px;
+	padding-left: 0;
+	padding-right: 0;
 }

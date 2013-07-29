@@ -38,10 +38,6 @@ d3.populationMap = function(containerId,width) {
     return e.replace(/\s+/g, "-").toLowerCase()
   };
 
-  function _getShape(e){
-    console.log(e.geometry.coordinates);
-  };
-
   function _createPath() {
     var scale = d3.geo.mercator().scale(900).center([-65, -35]).translate([width / 2 - 30, height / 2 - 125]);
     projection = scale;
@@ -59,14 +55,14 @@ d3.populationMap = function(containerId,width) {
             featuresDepartamentos = topojson.feature(e, e.objects.departamentos).features;
         
         provincias.selectAll("path")
-        .data(featuresProvincias)
-        .enter()
-        .append("path")
-        .attr("id", function (e) {
-            return _getName(e.properties.PROVINCIA)
-        })
-        .attr("d", path)
-        .attr("class", "provincia");
+          .data(featuresProvincias)
+          .enter()
+          .append("path")
+          .attr("id", function (e) {
+              return _getName(e.properties.PROVINCIA)
+          })
+          .attr("d", path)
+          .attr("class", "provincia");
   
 
         gran_buenos_aires = departamentos.append("g")
@@ -97,19 +93,19 @@ d3.populationMap = function(containerId,width) {
         });
 
         departamentos.select("g#provincia-buenos-aires")
-        .append("g")
-        .attr("id", "gran-buenos-aires")
-        .selectAll("path")
-        .data(featuresDepartamentos.filter(function (e) {
-            return AMBA_IDS.indexOf(e.id) !== -1
-        }))
-        .enter()
-        .append("path")
-        .attr("id", function (e) {
-            return e.id
-        })
-        .attr("d", path)
-        .attr("class", "departamento");
+          .append("g")
+          .attr("id", "gran-buenos-aires")
+          .selectAll("path")
+          .data(featuresDepartamentos.filter(function (e) {
+              return AMBA_IDS.indexOf(e.id) !== -1
+          }))
+          .enter()
+          .append("path")
+          .attr("id", function (e) {
+              return e.id
+          })
+          .attr("d", path)
+          .attr("class", "departamento");
 
     });
 
@@ -119,7 +115,21 @@ d3.populationMap = function(containerId,width) {
 
   return {
     
-    update: function(newData){
+    update: function(areas){
+      
+      departamentos
+        .selectAll('path')
+        .attr('class','departamento');
+
+      departamentos
+        .selectAll('path')
+        .attr('class', function (d){
+          if(areas.indexOf(d.id)>-1){
+            return 'departamento selected'; 
+          } else {
+            return 'departamento';
+          }
+        });
 
     }
 
