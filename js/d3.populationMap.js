@@ -18,7 +18,8 @@ d3.populationMap = function(containerId,width) {
     projection,
     mini_projection,
     amba,
-    mini_path;
+    mini_path,
+    mini_provincias;
   
   function _init() {
     _createMap();
@@ -132,6 +133,18 @@ d3.populationMap = function(containerId,width) {
           .attr("width",200)
           .attr("height",200);
 
+        mini_provincias = mini_mapa_svg.append("g").attr("class", "mini-provincias");
+
+        mini_provincias.selectAll("path")
+          .data(featuresProvincias)
+          .enter()
+          .append("path")
+          .attr("id", function (e) {
+              return _getName(e.properties.PROVINCIA)
+          })
+          .attr("d", mini_path)
+          .attr("class", "provincia");
+
         amba = mini_mapa_svg.append("g").attr("class", "amba");
 
         amba.selectAll("path")
@@ -145,6 +158,7 @@ d3.populationMap = function(containerId,width) {
           })
           .attr("d", mini_path)
           .attr("class", "departamento");
+
 
     });
 

@@ -87,6 +87,13 @@ g.provincias path {
 	stroke-linejoin: round;
 }
 
+g.mini-provincias path {
+	stroke: rgba(0,0,0,0.2);
+	fill: rgba(100, 100, 100, 0.5);
+	stroke-width: 1px;
+	stroke-linejoin: round;
+}
+
 g.provincias path#islas-malvinas {
 	fill:#EEE;
 }
@@ -127,6 +134,10 @@ g.amba path.selected {
 
 /* MAIN */
 #main-container{
+	min-height: 700px;
+}
+
+#map-column {
 	min-height: 700px;
 }
 
