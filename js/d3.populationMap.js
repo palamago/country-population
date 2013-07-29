@@ -43,7 +43,7 @@ d3.populationMap = function(containerId,width) {
     projection = scale;
     path = d3.geo.path().projection(scale);
 
-    d3.json("data/argentina.json", function(error, e) {
+    d3.json(window.location.pathname+"data/argentina.json", function(error, e) {
 
         mapa_svg = svg.append("g").classed("mapa", !0).attr("transform", "translate(0, 20)");
 
