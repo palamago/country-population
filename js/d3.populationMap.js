@@ -40,10 +40,6 @@ d3.populationMap = function(containerId,width) {
 
   };
 
-  function _addDots(n){
-    return n.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"); 
-  }
-
   function _getName(e) {
     return e.replace(/\s+/g, "-").toLowerCase()
   };

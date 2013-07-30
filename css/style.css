@@ -155,3 +155,20 @@ g.amba path.selected {
 	padding-left: 0;
 	padding-right: 0;
 }
+
+p.texto-resumen{
+	font-size: 40px;
+	color: white !important;
+}
+
+p.texto-resumen .important1{
+	font-weight: bold;
+	color: #A3C725;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+p.texto-resumen .important2{
+	font-weight: bold;
+	color: #25C5DE;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}

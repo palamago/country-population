@@ -27,6 +27,10 @@ var CountryPopulation;
 
     CountryPopulation.map;
 
+    CountryPopulation.$twitterButton = $('.twitter');
+
+    CountryPopulation.$text = $('.texto-resumen');
+
     CountryPopulation.bindings = {
         percentage:ko.observable(0),
         percentageTotal: 0,
@@ -72,6 +76,32 @@ var CountryPopulation;
         });
     };
 
+    CountryPopulation.shareTwitter = function(e){
+        e.preventDefault();
+        var qObj = {
+            'text': CountryPopulation.$text.text()+' - '+window.location,
+            'related': 'palamago,lndata',
+            'hashtags': 'argentina,censo,indec,federal'
+        };
+
+        var qs = $.param(qObj);
+        console.log(qs);
+        var width  = 575,
+            height = 400,
+            left   = ($(window).width()  - width)  / 2,
+            top    = ($(window).height() - height) / 2,
+            url    = this.href+"?"+qs,
+            opts   = 'status=1' +
+                     ',width='  + width  +
+                     ',height=' + height +
+                     ',top='    + top    +
+                     ',left='   + left;
+        
+        window.open(url, 'twitter', opts);
+     
+        return false;
+    }
+
     CountryPopulation.init = function () {
     	//Init slider
         CountryPopulation.$slider
@@ -94,6 +124,9 @@ var CountryPopulation;
 
         //Parsing Data
         CountryPopulation.retrieveData();
+
+        //Init button
+        CountryPopulation.$twitterButton.on('click',CountryPopulation.shareTwitter);
     };
 
     CountryPopulation.slideStopHandler = function (data) {

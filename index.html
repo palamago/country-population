@@ -50,51 +50,67 @@
         </div>
         <div class="col-lg-6">
           <h1>Argentina <small>, un país POCO federal...</small></h1>
-          <div class="">
-            <hr />
-            <h3>Total Argentina</h3>
-            <div class="row-fluid">
-              <div class="span6">
-                <p>Población</p>
-                <h2><span data-bind="text: poblacionTotal"></span></h2>      
-              </div>
-              <div class="span6">
-                <p>Superficie</p>
-                <h2 class="superficie"><span data-bind="text: superficieTotal"></span> Km²</h2>
+          <div class="row-fluid">
+            <div class="col-lg-12">
+              <ul id="myTab" class="nav nav-tabs">
+                <li class="active col-lg-6"><a href="#tab-resumen" data-toggle="tab">Resumen</a></li>
+                <li class="col-lg-6"><a href="#tab-data" data-toggle="tab">+ Datos</a></li>
+              </ul>
+              <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade active in" id="tab-resumen">
+                  <p class="texto-resumen">El <span class="important1" data-bind="text: percentageTotal"></span> de la población vive en el <span class="important2" data-bind="text: percentageSupSelected"></span> del territorio Argentino.</p>
+                  <hr />
+                  <a class="twitter popup" href="http://twitter.com/share">Tweet</a>
+                  <hr />
+                </div>
+                <div class="tab-pane fade" id="tab-data">
+                  <hr />
+                  <h3>Total Argentina</h3>
+                  <div class="row-fluid">
+                    <div class="span6">
+                      <p>Población</p>
+                      <h2><span data-bind="text: poblacionTotal"></span></h2>      
+                    </div>
+                    <div class="span6">
+                      <p>Superficie</p>
+                      <h2 class="superficie"><span data-bind="text: superficieTotal"></span> Km²</h2>
+                    </div>
+                  </div>
+                  <hr/>
+                  <h3><span data-bind="text: percentageTotal"></span> de Argentina seleccionado</h3>
+                  <div class="row-fluid">
+                    <div class="span6">
+                      <p>Población</p>
+                      <h2><span data-bind="text: cantSelected"></span></h2>
+                      
+                    </div>
+                    <div class="span6">
+                      <p>Superficie Ocupada</p>
+                      <h2 class="superficie"><span data-bind="text: supSelected"></span> Km²</h2>
+                    </div>
+                  </div> 
+
+                  <div class="row-fluid">
+                    <div class="span6">
+                      <p>Porcentaje de superficie Ocupada</p>
+                      <h2 class="porcentaje"><span data-bind="text: percentageSupSelected"></span></h2>
+                      
+                    </div>
+                    <div class="span6">
+                    </div>
+                  </div> 
+
+                  <hr />
+                  <h3>Filtros & Orden</h3>
+                  <p>Filtro: TO-DO</p>
+                  <p>Orden: TO-DO</p>
+                  <hr/>
+                </div>
               </div>
             </div>
-            <hr/>
-            <h3><span data-bind="text: percentageTotal"></span> de Argentina seleccionado</h3>
-            <div class="row-fluid">
-              <div class="span6">
-                <p>Población</p>
-                <h2><span data-bind="text: cantSelected"></span></h2>
-                
-              </div>
-              <div class="span6">
-                <p>Superficie Ocupada</p>
-                <h2 class="superficie"><span data-bind="text: supSelected"></span> Km²</h2>
-              </div>
-            </div> 
+          </div>
+          <div class="">
 
-            <div class="row-fluid">
-              <div class="span6">
-                <p>Porcentaje de superficie Ocupada</p>
-                <h2 class="porcentaje"><span data-bind="text: percentageSupSelected"></span></h2>
-                
-              </div>
-              <div class="span6">
-              </div>
-            </div> 
-
-            <hr />
-            <h3>Conclusión</h3>
-            <p>TO-DO</p>
-            <hr />
-            <h3>Filtros & Orden</h3>
-            <p>Filtro: TO-DO</p>
-            <p>Orden: TO-DO</p>
-            <hr/>
           </div>
         </div>
       </div>
