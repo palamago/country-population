@@ -29,6 +29,10 @@ var CountryPopulation;
 
     CountryPopulation.$twitterButton = $('.twitter');
 
+    CountryPopulation.$facebookButton = $('.facebook');
+
+    CountryPopulation.$googleButton = $('.gplus');
+
     CountryPopulation.$text = $('.texto-resumen');
 
     CountryPopulation.bindings = {
@@ -39,6 +43,35 @@ var CountryPopulation;
         cantSelected:ko.observable(0),
         supSelected:ko.observable(0),
         percentageSupSelected:0
+    };
+
+    CountryPopulation.init = function () {
+        //Init slider
+        CountryPopulation.$slider
+        .slider(CountryPopulation.sliderOptions)
+        .on('slideStop',CountryPopulation.slideStopHandler);
+
+        CountryPopulation.$slider.slider('setValue', CountryPopulation.convertSliderValue(0));
+
+        //Init KO bindings
+        CountryPopulation.bindings.percentageTotal = ko.computed(function() {
+            return CountryPopulation.bindings.percentage() + "%";
+        }, this);
+        CountryPopulation.bindings.percentageSupSelected = ko.computed(function() {
+            return ( (CountryPopulation.bindings.supSelected()*100) / CountryPopulation.bindings.superficieTotal() ).toFixed(3) + "%";
+        }, this);
+        ko.applyBindings(CountryPopulation.bindings);
+
+        //Init map
+        CountryPopulation.map = d3.populationMap('map-container',$('#map-container').width());
+
+        //Parsing Data
+        CountryPopulation.retrieveData();
+
+        //Init button
+        CountryPopulation.$twitterButton.on('click',CountryPopulation.shareTwitter);
+        CountryPopulation.$facebookButton.on('click',CountryPopulation.shareFacebook);
+        CountryPopulation.$googleButton.on('click',CountryPopulation.shareGoogle);
     };
 
     CountryPopulation.getLocation = function(href) {
@@ -79,13 +112,13 @@ var CountryPopulation;
     CountryPopulation.shareTwitter = function(e){
         e.preventDefault();
         var qObj = {
-            'text': CountryPopulation.$text.text()+' - '+window.location,
+            'text': CountryPopulation.$text.text(),
             'related': 'palamago,lndata',
             'hashtags': 'argentina,censo,indec,federal'
         };
 
         var qs = $.param(qObj);
-        console.log(qs);
+
         var width  = 575,
             height = 400,
             left   = ($(window).width()  - width)  / 2,
@@ -97,37 +130,55 @@ var CountryPopulation;
                      ',top='    + top    +
                      ',left='   + left;
         
-        window.open(url, 'twitter', opts);
+        window.open(url, 'Twitter', opts);
      
         return false;
     }
 
-    CountryPopulation.init = function () {
-    	//Init slider
-        CountryPopulation.$slider
-        .slider(CountryPopulation.sliderOptions)
-        .on('slideStop',CountryPopulation.slideStopHandler);
+    CountryPopulation.shareFacebook = function(e){
+        e.preventDefault();
+        var qs = 
+            '&p[url]='+window.location+
+            '&p[title]='+'Argentina, un país POCO federal...'+
+            '&p[images][0]='+window.location+'img/share.png'+
+            '&p[summary]='+CountryPopulation.$text.text();
 
-        CountryPopulation.$slider.slider('setValue', CountryPopulation.convertSliderValue(0));
+        var width  = 575,
+            height = 400,
+            left   = ($(window).width()  - width)  / 2,
+            top    = ($(window).height() - height) / 2,
+            url    = this.href+qs,
+            opts   = 'status=1' +
+                     ',width='  + width  +
+                     ',height=' + height +
+                     ',top='    + top    +
+                     ',left='   + left;
+        
+        window.open(url, 'Facebook', opts);
+     
+        return false;
+    }
 
-        //Init KO bindings
-        CountryPopulation.bindings.percentageTotal = ko.computed(function() {
-            return CountryPopulation.bindings.percentage() + "%";
-        }, this);
-        CountryPopulation.bindings.percentageSupSelected = ko.computed(function() {
-            return ( (CountryPopulation.bindings.supSelected()*100) / CountryPopulation.bindings.superficieTotal() ).toFixed(3) + "%";
-        }, this);
-        ko.applyBindings(CountryPopulation.bindings);
+    CountryPopulation.shareGoogle = function(e){
+        e.preventDefault();
+        var qs = 
+            'url='+ window.location;
 
-        //Init map
-        CountryPopulation.map = d3.populationMap('map-container',$('#map-container').width());
-
-        //Parsing Data
-        CountryPopulation.retrieveData();
-
-        //Init button
-        CountryPopulation.$twitterButton.on('click',CountryPopulation.shareTwitter);
-    };
+        var width  = 575,
+            height = 400,
+            left   = ($(window).width()  - width)  / 2,
+            top    = ($(window).height() - height) / 2,
+            url    = this.href+"?"+qs,
+            opts   = 'status=1' +
+                     ',width='  + width  +
+                     ',height=' + height +
+                     ',top='    + top    +
+                     ',left='   + left;
+        
+        window.open(url, 'Google+', opts);
+     
+        return false;
+    }
 
     CountryPopulation.slideStopHandler = function (data) {
         var percentage = CountryPopulation.convertSliderValue(data.value);
