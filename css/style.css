@@ -3,6 +3,10 @@ body {
 	background: #232a2d;
 	color:#FFF;
 }
+
+h1 {
+	text-align: center;
+}
 h2 {
 	font-weight: bold;
 	margin: 0;
