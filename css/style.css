@@ -10,6 +10,69 @@ h2 {
 	text-shadow:0 1px 1px rgba(0,0,0,0.3);
 }
 
+#myTabContent {
+	padding:25px;
+	/*background: #111719;
+	border-radius: 0 0 5px 5px;
+	box-shadow: 0 1px 0px rgba(255,255,255,0.1) */
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+	background: #FFF;
+	color:#232a2d;
+		border:#FFF 1px solid!important;
+		font-weight: bold
+
+}
+.nav-tabs {
+	border: 0 none!important;
+	margin: 30px auto;
+	width: 300px
+}
+.nav-tabs>li  {
+	font-weight: bold;
+	text-align:center;	padding-left: 0;padding-right:0;
+	font-size: 16px;
+		border: none 0!important;
+
+}
+
+.nav-tabs>li>a:hover {
+border-color: #FFF;
+}
+
+.share-icon {
+	width: 48px
+}
+.share-links {
+	text-align: center;
+	margin: 30px 0;
+}
+
+.share-links a {
+	margin: 0 10px;
+	display: inline-block;
+}
+
+.nav-tabs>li:first-child  a {
+	border-radius: 5px 0 0 5px
+}
+
+.nav-tabs>li:last-child a {
+	border-radius: 0 5px 5px 0;
+}
+
+
+.nav-tabs>li a  {
+	border: 0 none;
+	border:#FFF 1px solid;
+	margin: 0;
+	color:#FFF;
+
+}
+.nav-tabs>li a:hover  {
+	background: transparent;
+}
+
 .row-fluid {
 	margin-bottom:20px;
 }
@@ -158,7 +221,10 @@ g.amba path.selected {
 
 p.texto-resumen{
 	font-size: 40px;
-	color: white !important;
+	color: #FFF !important;
+	text-transform: none;
+	font-weight: normal;
+	text-align: center;
 }
 
 p.texto-resumen .important1{
