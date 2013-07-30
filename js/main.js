@@ -112,7 +112,7 @@ var CountryPopulation;
     CountryPopulation.shareTwitter = function(e){
         e.preventDefault();
         var qObj = {
-            'text': CountryPopulation.$text.text()+' - '+window.location,
+            'text': CountryPopulation.$text.text(),
             'related': 'palamago,lndata',
             'hashtags': 'argentina,censo,indec,federal'
         };
