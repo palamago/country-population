@@ -42,7 +42,9 @@ var CountryPopulation;
         superficieTotal:ko.observable(0),
         cantSelected:ko.observable(0),
         supSelected:ko.observable(0),
-        percentageSupSelected:0
+        percentageSupSelected:0,
+        superficieTotalStr:0,
+        poblacionTotalStr:0
     };
 
     CountryPopulation.init = function () {
@@ -58,7 +60,24 @@ var CountryPopulation;
             return CountryPopulation.bindings.percentage() + "%";
         }, this);
         CountryPopulation.bindings.percentageSupSelected = ko.computed(function() {
-            return ( (CountryPopulation.bindings.supSelected()*100) / CountryPopulation.bindings.superficieTotal() ).toFixed(3) + "%";
+            var r = (CountryPopulation.bindings.supSelected()*100) / CountryPopulation.bindings.superficieTotal();
+            if(r>99.99999)
+                return 100+"%"
+            if(!r || r===0)
+                return 0+"%";
+            return ( r ).toFixed(3) + "%";
+        }, this);
+        CountryPopulation.bindings.superficieTotalStr = ko.computed(function() {
+            return CountryPopulation.dotSeparateNumber(CountryPopulation.bindings.superficieTotal());
+        }, this);
+        CountryPopulation.bindings.poblacionTotalStr = ko.computed(function() {
+            return CountryPopulation.dotSeparateNumber(CountryPopulation.bindings.poblacionTotal());
+        }, this);
+        CountryPopulation.bindings.cantSelectedStr = ko.computed(function() {
+            return CountryPopulation.dotSeparateNumber(CountryPopulation.bindings.cantSelected());
+        }, this);
+        CountryPopulation.bindings.supSelectedStr = ko.computed(function() {
+            return CountryPopulation.dotSeparateNumber(Math.round(CountryPopulation.bindings.supSelected()));
         }, this);
         ko.applyBindings(CountryPopulation.bindings);
 
@@ -101,11 +120,11 @@ var CountryPopulation;
             }
             var n = parseInt(e[indexSuperficie]);
             if(!isNaN(n)){
-              superficie = superficie + (n/100000000000000000);
+              superficie = superficie + n;
             }
           });
         CountryPopulation.bindings.poblacionTotal(total);
-        CountryPopulation.bindings.superficieTotal(Math.round(superficie));
+        CountryPopulation.bindings.superficieTotal(Math.round(superficie/100000000000000000));
         });
     };
 
@@ -228,20 +247,27 @@ var CountryPopulation;
                 if(!isNaN(parseInt(e[index]))){
                     temp += parseInt(e[index]);
                     ids.push(e[indexId]);
-                    sup += parseInt((e[indexSuperficie]/100000000000000000));
-                    if( max < temp ){
+                    sup += parseInt(e[indexSuperficie]);
+                    if( max <= temp ){
                         return false;
                     }
                 }
             });
         }
-        CountryPopulation.bindings.supSelected(sup);
+        CountryPopulation.bindings.supSelected(sup/100000000000000000);
         CountryPopulation.updateMap(ids);
     };
 
     CountryPopulation.updateMap = function (localidadesIds) {
         CountryPopulation.map.update(localidadesIds);
     };
+
+    CountryPopulation.dotSeparateNumber = function(val){
+        while (/(\d+)(\d{3})/.test(val.toString())){
+          val = val.toString().replace(/(\d+)(\d{3})/, '$1'+'.'+'$2');
+        }
+        return val;
+    }
 
 })(window, document,jQuery, d3, ko);
 
