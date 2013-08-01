@@ -35,6 +35,10 @@ var CountryPopulation;
 
     CountryPopulation.$text = $('.texto-resumen');
 
+    //CountryPopulation.$filterSelector = $('#filter-type');
+
+    CountryPopulation.$orderSelector = $('#filter-order')
+
     CountryPopulation.bindings = {
         percentage:ko.observable(0),
         percentageTotal: 0,
@@ -44,7 +48,15 @@ var CountryPopulation;
         supSelected:ko.observable(0),
         percentageSupSelected:0,
         superficieTotalStr:0,
-        poblacionTotalStr:0
+        poblacionTotalStr:0,
+        availableFilters:ko.observable(),
+        selectedFilter:ko.observable()
+    };
+
+    var FilterOption = function(name, id, icon) {
+        this.name = name;
+        this.id = id;
+        this.icon = icon;
     };
 
     CountryPopulation.init = function () {
@@ -106,7 +118,8 @@ var CountryPopulation;
     CountryPopulation.retrieveData = function(){
         d3.text(window.location.pathname+"data/lanacion-censo.csv", function(datasetText) {
           CountryPopulation.data = d3.csv.parseRows(datasetText);
-          CountryPopulation.headers = CountryPopulation.data[0]; 
+          CountryPopulation.headers = CountryPopulation.data[0];
+          CountryPopulation.addFilterOptions();
           CountryPopulation.data = CountryPopulation.data.slice(1,CountryPopulation.data.length);
           var total = 0;
           var superficie = 0;
@@ -126,6 +139,29 @@ var CountryPopulation;
         CountryPopulation.bindings.poblacionTotal(total);
         CountryPopulation.bindings.superficieTotal(Math.round(superficie/100000000000000000));
         });
+    };
+
+    CountryPopulation.addFilterOptions = function(){
+        /*var array = [];
+        
+        $.each(CountryPopulation.headers,function(i,e){
+            array.push('<option id="'+i+'" value="'+e+'">'+e+'</option>');
+        });
+
+        CountryPopulation.$filterSelector.html(array.join(''));
+
+        //Generate selects
+        CountryPopulation.$filterSelector = $('#filter-type').selectpicker({
+              style: 'btn',
+              size: 8
+        });*/
+
+        CountryPopulation.$orderSelector = $('#filter-order').selectpicker({
+              style: 'btn',
+              size: 4
+        });
+
+        CountryPopulation.$orderSelector.on('change',CountryPopulation.orderChanged);
     };
 
     CountryPopulation.shareTwitter = function(e){
@@ -199,6 +235,15 @@ var CountryPopulation;
         return false;
     }
 
+    CountryPopulation.orderChanged = function (e) {
+        CountryPopulation.$slider.slider('setValue', CountryPopulation.convertSliderValue(0));
+        CountryPopulation.$slider
+                .trigger({
+                    type: 'slideStop',
+                    value: 100
+                });
+    };
+
     CountryPopulation.slideStopHandler = function (data) {
         var percentage = CountryPopulation.convertSliderValue(data.value);
         CountryPopulation.bindings.percentage(percentage);
@@ -217,19 +262,41 @@ var CountryPopulation;
     };
 
     CountryPopulation.orderData = function () {
-        var filter = "Poblacion_Total_2010";
-        var index = CountryPopulation.getHeaderIndex(filter);
-        var order = "ASC";
+        var filter =  'Poblacion_Total_2010',
+            index = CountryPopulation.getHeaderIndex(filter),
+            order = CountryPopulation.$orderSelector.val(),
+            f;
+       
+        var test = parseFloat(CountryPopulation.data[0][index]);
 
-        if(order==="DESC"){
-            CountryPopulation.data.sort(function(a,b){
-                return a[index] - b[index];
-            });
-        }else if(order==="ASC"){
-            CountryPopulation.data.sort(function(a,b){
-                return b[index] - a[index];
-            });
+        if(!isNaN(test)) {
+            if(order==="DESCENDENTE"){
+                f = function(a,b){
+                    return parseFloat(a[index]) - parseFloat(b[index]);
+                };
+            }else if(order==="ASCENDENTE"){
+                f = function(a,b){
+                    return parseFloat(b[index]) - parseFloat(a[index]);
+                };
+            }
+        } else {
+            if(order==="DESCENDENTE"){
+                f = function(a,b) {
+                    if (a[index] < b[index]) return -1;
+                    if (a[index] > b[index]) return 1;
+                    return 0;
+                };
+            }else if(order==="ASCENDENTE"){
+                f = function(a,b) {
+                    if (b[index] < a[index]) return -1;
+                    if (b[index] > a[index]) return 1;
+                    return 0;
+                };
+            }
         }
+
+
+        CountryPopulation.data.sort(f);
     };
 
     CountryPopulation.filterData = function () {
