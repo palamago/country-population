@@ -208,6 +208,23 @@ g.amba path.hover {
   color: white;
 }
 
+.btn.filter-order.disabled {
+	background: #13191b;
+	border-color:#13191b;
+	color: white;
+	box-shadow: inset 0 0 8px rgba(0,0,0,0.8), 0 1px 0 rgba(255,255,255,0.1);
+}
+
+.well.disclaimer {
+		background: #13191b;
+		border: none;
+}
+.btn.filter-order.btn-default {
+	background: #39454a;
+	border-color:#39454a;
+	color: white;
+}
+
 #tooltip strong {
 	color: #a3c725
 }
@@ -250,7 +267,8 @@ g.amba path.hover {
 }
 
 .footer {
-	border-top: 1px solid #DDD;
+	border-top: 1px solid  rgba(0,0,0,0.8);
+	box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
 	margin-top: 30px;
 	padding-top: 29px;
 	padding-bottom: 30px;
@@ -279,7 +297,6 @@ p.texto-resumen .important2{
 }
 
 .filter-value{
-	letter-spacing: 10px;
 	font-size: 15px;
 	color:white;
 }
@@ -289,4 +306,5 @@ p.texto-resumen .important2{
 	top: 7px;
 	right: 7px;
 	border: 0;
+	background: #13191b
 }
