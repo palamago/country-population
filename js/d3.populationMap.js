@@ -19,12 +19,28 @@ d3.populationMap = function(containerId,width) {
     mini_projection,
     amba,
     mini_path,
-    mini_provincias;
+    mini_provincias,
+    tooltip;
   
   function _init() {
     _createMap();
+    _createTooltip();
     _createPath();
   };
+
+  function _createTooltip() {
+    //Crea el tooltip            
+    tooltip = d3.select("body").append("div")   
+                .attr("id", "tooltip")               
+                .style("opacity", 1);
+
+    svg.on("mousemove", mousemove);
+    mini_svg.on("mousemove", mousemove);
+
+    function mousemove() {
+      tooltip.style("left", (d3.event.pageX) + "px").style("top", (d3.event.pageY - 28) + "px");
+    }
+  }
 
   function _createMap() {
 
@@ -159,6 +175,32 @@ d3.populationMap = function(containerId,width) {
           .attr("d", mini_path)
           .attr("class", "departamento");
 
+
+        //Tooltip
+        var m = mapa_svg.selectAll("path.departamento");
+        var mm = mini_mapa_svg.selectAll("path.departamento");
+
+        function addTooltipListener(s) {
+          s.on("mouseover", function(d) {
+              var innerHTML = d.properties.a + '<br/><strong>' + d.properties.p + '</strong>';        
+              tooltip.transition()        
+                     .duration(100)      
+                     .style("opacity", .9)
+
+              tooltip.html(innerHTML);
+              $(this)[0].classList.add("hover");
+          })
+          .on("mouseout", function(d) {
+              $(this)[0].classList.remove("hover");
+              tooltip.transition()        
+                      .duration(200)      
+                      .style("opacity", 0);   
+          });
+        };
+
+        addTooltipListener(m);
+
+        addTooltipListener(mm);
 
     });
 

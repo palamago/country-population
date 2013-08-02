@@ -181,10 +181,34 @@ g.amba path.selected {
 		stroke-width: 1px;
 
 }
-.poblacion {
-	  -webkit-filter: drop-shadow( 1px 2px 1px rgba(0,0,0,0.6) );
-            filter: drop-shadow( 1px 2px 1px rgba(0,0,0,0.6)); /* Same syntax as box-shadow */
+
+g.departamentos path.hover, 
+g.amba path.hover {
+	fill:#A3C725;
+	stroke:#A3C725;
+	cursor:crosshair;
 }
+
+.poblacion {
+	-webkit-filter: drop-shadow( 1px 2px 1px rgba(0,0,0,0.6) );
+    		filter: drop-shadow( 1px 2px 1px rgba(0,0,0,0.6)); /* Same syntax as box-shadow */
+}
+
+#tooltip {   
+  position: absolute;           
+  text-align: center;           
+  border: 0px;      
+  pointer-events: none;
+  width: 150px;
+  box-shadow: 2px 2px 2px black;    
+  background-color: white;
+  text-align: center;
+  border: 1px solid black;
+  border-radius: 4px;  
+  padding: 5px;
+  color: black;
+}
+
 /* SLIDER */
 #slider{
 	display: none;
