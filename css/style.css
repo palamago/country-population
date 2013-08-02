@@ -234,7 +234,8 @@ g.amba path.hover {
 }
 
 .slider.slider-vertical {
-	height: 700px;
+	height: 400px;
+	margin-top: 120px;
 }
 
 .slider-selection {
