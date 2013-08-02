@@ -38,7 +38,7 @@ d3.populationMap = function(containerId,width) {
     mini_svg.on("mousemove", mousemove);
 
     function mousemove() {
-      tooltip.style("left", (d3.event.pageX) + "px").style("top", (d3.event.pageY - 28) + "px");
+      tooltip.style("left", (d3.event.pageX + 20) + "px").style("top", (d3.event.pageY - 30) + "px");
     }
   }
 

@@ -39,8 +39,6 @@ var CountryPopulation;
 
     CountryPopulation.$fullScreenBtb = $('#full-screen-btn');
 
-    //CountryPopulation.$fullScreenBtb = $('#full-screen-btn');
-
     CountryPopulation.bindings = {
         percentage:ko.observable(0),
         percentageTotal: 0,
