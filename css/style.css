@@ -200,15 +200,17 @@ g.amba path.hover {
   border: 0px;      
   pointer-events: none;
   width: 150px;
-  box-shadow: 2px 2px 2px black;    
-  background-color: white;
+  box-shadow: 0px 1px 2px rgba(0,0,0,0.8);    
+  background-color: black;
   text-align: center;
-  border: 1px solid black;
   border-radius: 4px;  
   padding: 5px;
-  color: black;
+  color: white;
 }
 
+#tooltip strong {
+	color: #a3c725
+}
 /* SLIDER */
 #slider{
 	display: none;
