@@ -186,7 +186,7 @@ g.departamentos path.hover,
 g.amba path.hover {
 	fill:#A3C725;
 	stroke:#A3C725;
-	cursor:crosshair;
+	cursor:help;
 }
 
 .poblacion {
@@ -208,6 +208,7 @@ g.amba path.hover {
   color: white;
 }
 
+
 .btn.filter-order.disabled {
 	background: #13191b;
 	border-color:#13191b;
@@ -228,14 +229,25 @@ g.amba path.hover {
 #tooltip strong {
 	color: #a3c725
 }
+
+.col-lg-1 h5 {
+	text-align: center;
+	font-weight: bold;
+	font-size: 20px;
+	margin:10px 0;
+}
+
+.slider-thing {
+	margin-top:100px;
+}
 /* SLIDER */
 #slider{
 	display: none;
 }
 
 .slider.slider-vertical {
-	height: 400px;
-	margin-top: 120px;
+	height: 300px;
+	margin:0 20px 10px 20px;
 }
 
 .slider-selection {
@@ -245,7 +257,15 @@ g.amba path.hover {
 
 .slider-handle {
 	width: 30px;
+	cursor: -moz-grab; 
+	cursor: -webkit-grab;
 	height: 30px;
+}
+
+.slider-handle:active {
+	cursor: -moz-grabbing; 
+	cursor: -webkit-grabbing;
+
 }
 
 .slider.slider-vertical .slider-handle {
