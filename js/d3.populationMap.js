@@ -32,7 +32,7 @@ d3.populationMap = function(containerId,width) {
     //Crea el tooltip            
     tooltip = d3.select("body").append("div")   
                 .attr("id", "tooltip")               
-                .style("opacity", 1);
+                .style("opacity", 0);
 
     svg.on("mousemove", mousemove);
     mini_svg.on("mousemove", mousemove);
