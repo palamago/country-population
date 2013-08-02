@@ -276,11 +276,11 @@ var CountryPopulation;
         if(!isNaN(test)) {
             if(order==="DESCENDENTE"){
                 f = function(a,b){
-                    return parseFloat(a[index]) - parseFloat(b[index]);
+                    return parseFloat(b[index]) - parseFloat(a[index]);
                 };
             }else if(order==="ASCENDENTE"){
                 f = function(a,b){
-                    return parseFloat(b[index]) - parseFloat(a[index]);
+                    return parseFloat(a[index]) - parseFloat(b[index]);
                 };
             }
         } else {
