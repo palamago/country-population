@@ -1,4 +1,8 @@
 
+html,body{
+	height: 100%;
+}
+
 body {
 	background: #232a2d;
 	color:#FFF;
@@ -252,4 +256,11 @@ p.texto-resumen .important2{
 	letter-spacing: 10px;
 	font-size: 15px;
 	color:white;
+}
+
+#full-screen-btn {
+	position: absolute;
+	top: 7px;
+	right: 7px;
+	border: 0;
 }

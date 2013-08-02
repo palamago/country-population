@@ -35,9 +35,9 @@ var CountryPopulation;
 
     CountryPopulation.$text = $('.texto-resumen');
 
-    //CountryPopulation.$filterSelector = $('#filter-type');
-
     CountryPopulation.$orderSelectors = $('.filter-order')
+
+    CountryPopulation.$fullScreenBtb = $('#full-screen-btn');
 
     CountryPopulation.bindings = {
         percentage:ko.observable(0),
@@ -108,6 +108,17 @@ var CountryPopulation;
         CountryPopulation.$twitterButton.on('click',CountryPopulation.shareTwitter);
         CountryPopulation.$facebookButton.on('click',CountryPopulation.shareFacebook);
         CountryPopulation.$googleButton.on('click',CountryPopulation.shareGoogle);
+        CountryPopulation.$fullScreenBtb.on('click',CountryPopulation.fullScreen);
+    };
+
+    CountryPopulation.fullScreen = function() {
+        var el = document.documentElement
+        , rfs =
+                el.requestFullScreen
+                || el.webkitRequestFullScreen
+                || el.mozRequestFullScreen
+        ;
+        rfs.call(el);
     };
 
     CountryPopulation.getLocation = function(href) {
@@ -147,25 +158,6 @@ var CountryPopulation;
     };
 
     CountryPopulation.addFilterOptions = function(){
-        /*var array = [];
-        
-        $.each(CountryPopulation.headers,function(i,e){
-            array.push('<option id="'+i+'" value="'+e+'">'+e+'</option>');
-        });
-
-        CountryPopulation.$filterSelector.html(array.join(''));
-
-        //Generate selects
-        CountryPopulation.$filterSelector = $('#filter-type').selectpicker({
-              style: 'btn',
-              size: 8
-        });*/
-
-        CountryPopulation.$orderSelector = $('#filter-order').selectpicker({
-              style: 'btn',
-              size: 4
-        });
-
         CountryPopulation.$orderSelectors.on('click',CountryPopulation.orderChanged);
     };
 
