@@ -270,6 +270,9 @@
 		},
 
 		mouseup: function(ev) {
+			this.tooltipInner.text(
+				this.formater(this.value[0])
+			);
 			if (this.touchCapable) {
 				// Touch: Bind touch events:
 				$(document).off({

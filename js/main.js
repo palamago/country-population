@@ -166,7 +166,7 @@ var CountryPopulation;
         var qObj = {
             'text': CountryPopulation.$text.text(),
             'related': 'palamago,lndata',
-            'hashtags': 'argentina,censo,indec,federal'
+            'hashtags': 'argentina,censo,paisFederal'
         };
 
         var qs = $.param(qObj);
