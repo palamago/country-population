@@ -3,7 +3,7 @@ D3 Argentina Population
 
 A simple and interactive D3 data visualization using Argentina's population data.
 
-Graphics with a Cause:
+Graphics with a Cause ([video](http://www.youtube.com/watch?v=Ys1F1xbS0vs&feature=youtu.be)):
 * Represent how the most of Argentina's people live just in a couple of cities.
 * The visitors can "play" with the slider and make some "research" with available data. They can share their own and "most shocking" conclusion.
 
