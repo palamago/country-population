@@ -37,7 +37,7 @@ var CountryPopulation;
 
     //CountryPopulation.$filterSelector = $('#filter-type');
 
-    CountryPopulation.$orderSelector = $('#filter-order')
+    CountryPopulation.$orderSelectors = $('.filter-order')
 
     CountryPopulation.bindings = {
         percentage:ko.observable(0),
@@ -50,7 +50,8 @@ var CountryPopulation;
         superficieTotalStr:0,
         poblacionTotalStr:0,
         availableFilters:ko.observable(),
-        selectedFilter:ko.observable()
+        selectedFilter:ko.observable(),
+        selectedOrder:ko.observable('DESCENDENTE')
     };
 
     var FilterOption = function(name, id, icon) {
@@ -69,6 +70,8 @@ var CountryPopulation;
 
         //Init KO bindings
         CountryPopulation.bindings.percentageTotal = ko.computed(function() {
+            if(isNaN(CountryPopulation.bindings.cantSelected()))
+                return 0+"%";
             return CountryPopulation.bindings.percentage() + "%";
         }, this);
         CountryPopulation.bindings.percentageSupSelected = ko.computed(function() {
@@ -86,6 +89,8 @@ var CountryPopulation;
             return CountryPopulation.dotSeparateNumber(CountryPopulation.bindings.poblacionTotal());
         }, this);
         CountryPopulation.bindings.cantSelectedStr = ko.computed(function() {
+            if(isNaN(CountryPopulation.bindings.cantSelected()))
+                return 0;
             return CountryPopulation.dotSeparateNumber(CountryPopulation.bindings.cantSelected());
         }, this);
         CountryPopulation.bindings.supSelectedStr = ko.computed(function() {
@@ -161,7 +166,7 @@ var CountryPopulation;
               size: 4
         });
 
-        CountryPopulation.$orderSelector.on('change',CountryPopulation.orderChanged);
+        CountryPopulation.$orderSelectors.on('click',CountryPopulation.orderChanged);
     };
 
     CountryPopulation.shareTwitter = function(e){
@@ -236,11 +241,18 @@ var CountryPopulation;
     }
 
     CountryPopulation.orderChanged = function (e) {
-        CountryPopulation.$slider.slider('setValue', CountryPopulation.convertSliderValue(0));
+        var s = $(this);
+        if(s.hasClass('disabled'))
+            return;
+        CountryPopulation.$orderSelectors.removeClass('disabled btn-inverse').addClass('btn-default');
+        s.addClass('btn-inverse disabled').removeClass('btn-default');
+
+        CountryPopulation.bindings.selectedOrder(s.text());
+        //CountryPopulation.$slider.slider('setValue', CountryPopulation.convertSliderValue(0));
         CountryPopulation.$slider
                 .trigger({
                     type: 'slideStop',
-                    value: 100
+                    value: parseInt(CountryPopulation.$slider.val())
                 });
     };
 
@@ -264,7 +276,7 @@ var CountryPopulation;
     CountryPopulation.orderData = function () {
         var filter =  'Poblacion_Total_2010',
             index = CountryPopulation.getHeaderIndex(filter),
-            order = CountryPopulation.$orderSelector.val(),
+            order = CountryPopulation.bindings.selectedOrder().toUpperCase().trim(),
             f;
        
         var test = parseFloat(CountryPopulation.data[0][index]);

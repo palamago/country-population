@@ -15,7 +15,7 @@ h2 {
 }
 
 #myTabContent {
-	padding:25px;
+	padding: 0 25px;
 	/*background: #111719;
 	border-radius: 0 0 5px 5px;
 	box-shadow: 0 1px 0px rgba(255,255,255,0.1) */
@@ -91,6 +91,11 @@ hr {
 border-top: 1px solid rgba(0,0,0,0.2);
 border-bottom: 1px solid rgba(255,255,255,0.1);
 }
+
+.tab-pane {
+	height: 500px;
+}
+
 p,small {
 	color:#606d72!important;
 	text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
@@ -241,4 +246,10 @@ p.texto-resumen .important2{
 	font-weight: bold;
 	color: #25C5DE;
 	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.filter-value{
+	letter-spacing: 10px;
+	font-size: 15px;
+	color:white;
 }

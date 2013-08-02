@@ -81,7 +81,7 @@
                       <img class="share-icon" src="img/g.svg" />
                     </a>
                   </div>
-                </div>
+                 </div>
                 <div class="tab-pane fade" id="tab-data">
                   <h3>Total Argentina</h3>
                   <div class="row-fluid">
@@ -117,32 +117,18 @@
                     <div class="span6">
                     </div>
                   </div> 
-                  <hr/>
                   <div class="row-fluid">
-                    <h3>Criterio de selección</h3>
-
-                    <form class="form-horizontal">
-                      <div class="form-group">
-                        <p>Se utiliza el valor de "Población Total" por departamento del Censo 2010</p>
-                        <!--label for="inputEmail" class="col-lg-2 control-label"></label>
-                        <div class="col-lg-10">
-                          <select id="filter-type" class="selectpicker">
-                          </select>
-                        </div-->
+                    <div class="span12">
+                      <p>Orden de la selección</p>
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-default filter-order"><i class="glyphicon glyphicon-arrow-up"></i> ASCENDENTE</button>
+                        <button type="button" class="btn disabled btn-inverse filter-order"><i class="glyphicon glyphicon-arrow-down"></i> DESCENDENTE</button>
                       </div>
-                      <div class="form-group">
-                        <label for="inputPassword" class="col-lg-2 control-label">Orden</label>
-                        <div class="col-lg-10">
-                          <select id="filter-order" class="selectpicker">
-                            <option data-icon="glyphicon glyphicon-arrow-up">ASCENDENTE</option>
-                            <option data-icon="glyphicon glyphicon-arrow-down">DESCENDENTE</option>
-                          </select>
-                        </div>
-                      </div>
-                    </form>
-
+                      
+                    </div>
                   </div>
                 </div>
+                <p>Se utiliza "Población Total" por departamento del Censo 2010, en orden:</p><p class="text-center"><span class="filter-value" data-bind="text: selectedOrder"></span></p>
               </div>
             </div>
           </div>
