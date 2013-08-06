@@ -51,7 +51,8 @@ var CountryPopulation;
         poblacionTotalStr:0,
         availableFilters:ko.observable(),
         selectedFilter:ko.observable(),
-        selectedOrder:ko.observable('DESCENDENTE')
+        selectedOrder:ko.observable('DESCENDENTE'),
+        densidadSelected:0
     };
 
     var FilterOption = function(name, id, icon) {
@@ -64,7 +65,7 @@ var CountryPopulation;
         //Init slider
         CountryPopulation.$slider
         .slider(CountryPopulation.sliderOptions)
-        .on('slideStop',CountryPopulation.slideStopHandler);
+        .on('slide',CountryPopulation.slideStopHandler);
 
         CountryPopulation.$slider.slider('setValue', CountryPopulation.convertSliderValue(0));
 
@@ -80,7 +81,7 @@ var CountryPopulation;
                 return 100+"%"
             if(!r || r===0)
                 return 0+"%";
-            return ( r ).toFixed(3) + "%";
+            return ( r ).toFixed(3).replace('.',',') + "%";
         }, this);
         CountryPopulation.bindings.superficieTotalStr = ko.computed(function() {
             return CountryPopulation.dotSeparateNumber(CountryPopulation.bindings.superficieTotal());
@@ -96,10 +97,13 @@ var CountryPopulation;
         CountryPopulation.bindings.supSelectedStr = ko.computed(function() {
             return CountryPopulation.dotSeparateNumber(Math.round(CountryPopulation.bindings.supSelected()));
         }, this);
+        CountryPopulation.bindings.densidadSelected = ko.computed(function() {
+            if(CountryPopulation.bindings.supSelected()===0)
+                return 0;
+            var r = (CountryPopulation.bindings.cantSelected() / CountryPopulation.bindings.supSelected());
+            return ( r ).toFixed(3).replace('.',',');
+        }, this);
         ko.applyBindings(CountryPopulation.bindings);
-
-        //Init map
-        CountryPopulation.map = d3.populationMap('map-container',$('#map-container').width());
 
         //Parsing Data
         CountryPopulation.retrieveData();
@@ -137,11 +141,12 @@ var CountryPopulation;
           CountryPopulation.headers = CountryPopulation.data[0];
           CountryPopulation.addFilterOptions();
           CountryPopulation.data = CountryPopulation.data.slice(1,CountryPopulation.data.length);
-          var total = 0;
-          var superficie = 0;
-          var filter = "Poblacion_Total_2010";
-          var indexTotal = CountryPopulation.getHeaderIndex(filter);
-          var indexSuperficie = CountryPopulation.getHeaderIndex('SUPERFICIE');
+          var total = 0,
+            superficie = 0,
+            filter = "Poblacion_Total_2010",
+            indexTotal = CountryPopulation.getHeaderIndex(filter),
+            indexSuperficie = CountryPopulation.getHeaderIndex('SUPERFICIE');
+          
           CountryPopulation.data.forEach(function (e) {
             var n = parseInt(e[indexTotal]);
             if(!isNaN(n)){
@@ -154,7 +159,13 @@ var CountryPopulation;
           });
         CountryPopulation.bindings.poblacionTotal(total);
         CountryPopulation.bindings.superficieTotal(Math.round(superficie/100000000000000000));
+
+        //Init map
+        CountryPopulation.map = d3.populationMap('map-container',$('#map-container').width(),CountryPopulation.data);
+
+
         });
+
     };
 
     CountryPopulation.addFilterOptions = function(){
@@ -243,7 +254,7 @@ var CountryPopulation;
         //CountryPopulation.$slider.slider('setValue', CountryPopulation.convertSliderValue(0));
         CountryPopulation.$slider
                 .trigger({
-                    type: 'slideStop',
+                    type: 'slide',
                     value: parseInt(CountryPopulation.$slider.val())
                 });
     };
@@ -266,7 +277,7 @@ var CountryPopulation;
     };
 
     CountryPopulation.orderData = function () {
-        var filter =  'Poblacion_Total_2010',
+        var filter =  'Poblacion_Densidad_2010',
             index = CountryPopulation.getHeaderIndex(filter),
             order = CountryPopulation.bindings.selectedOrder().toUpperCase().trim(),
             f;

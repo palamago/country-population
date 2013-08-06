@@ -178,14 +178,20 @@ g.departamentos path.selected,
 g.amba path.selected {
 	fill:#25c5de;
 	stroke:#118c9f;
-		stroke-width: 1px;
+	stroke-width: 1px;
+}
 
+g.departamentos path.free,
+g.amba path.free {
+	stroke: #E1e1e1 !important;
+	stroke-width: 1px;
+	fill: #EEE !important;
 }
 
 g.departamentos path.hover, 
 g.amba path.hover {
-	fill:#A3C725;
-	stroke:#A3C725;
+	fill:#A3C725 !important;
+	stroke:#A3C725 !important;
 	cursor:help;
 }
 

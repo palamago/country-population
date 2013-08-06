@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Pablo H. Paladino @palamago">
 
-    <meta name="Title" content="Argentina, un país POCO federal..." />
-    <meta name="og:title" content="Argentina, un país POCO federal..." />
-    <meta name="description" content="El 50% de la población vive en el 1.607% del territorio Argentino." />
-    <meta name="og:description" content="El 50% de la población vive en el 1.607% del territorio Argentino." />
+    <meta name="Title" content="Argentina, vivimos juntos pero separados..." />
+    <meta name="og:title" content="Argentina, vivimos juntos pero separados..." />
+    <meta name="description" content="El 50% de la población vive en el 1,607% del territorio Argentino." />
+    <meta name="og:description" content="El 50% de la población vive en el 1,607% del territorio Argentino." />
     <meta name="og:image" content="http://arena.palamago.com.ar/poblacion/img/share.png" />
     <link rel="image_src" href="http://arena.palamago.com.ar/poblacion/img/share.png" />
 
@@ -63,7 +63,7 @@
           </div>
         </div>
         <div class="col-lg-6">
-          <h1>Argentina <small>, un país POCO federal...</small></h1>
+          <h1>Argentina <small>, vivimos juntos pero separados</small></h1>
           <div class="row-fluid">
             <div class="col-lg-12">
               <ul id="myTab" class="nav nav-tabs">
@@ -116,9 +116,10 @@
                     <div class="span6">
                       <p>Porcentaje de superficie Ocupada</p>
                       <h2 class="porcentaje"><span data-bind="text: percentageSupSelected"></span></h2>
-                      
                     </div>
                     <div class="span6">
+                      <p>Habitantes por Km²</p>
+                      <h2 class="porcentaje"><span data-bind="text: densidadSelected"></span></h2>
                     </div>
                   </div> 
                   <div class="row-fluid">
@@ -131,9 +132,11 @@
                       
                     </div>
                   </div>
+                  <a data-toggle="modal" href="#ayuda" class="btn btn-primary btn-lg">Método</a>
+
                 </div>
                 <div class="well disclaimer">
-                <p class="text-center">Para la selección, se tiene en cuenta la "Población Total por departamento" del Censo 2010 de INDEC, en orden:</p><p class="text-center"><span class="filter-value" data-bind="text: selectedOrder"></span></p>
+                <p class="text-center">Para la selección, se tiene en cuenta la "Densidad de población por departamento" del Censo 2010 de INDEC, en orden:</p><p class="text-center"><span class="filter-value" data-bind="text: selectedOrder"></span></p>
               </div>
               </div>
             </div>
@@ -161,6 +164,25 @@
 
     <a id="full-screen-btn" class="btn btn-default btn-mini"><span class="glyphicon glyphicon-resize-full"></span>
     </a>
+
+    <!-- Modal -->
+    <div class="modal fade" id="ayuda">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Método utilizado</h4>
+          </div>
+          <div class="modal-body">
+            <p>Se asumo distribucion de poblacion pareja dentro del mismo departamento.</p>
+            <p>No se tiene en cuenta a Islas Malvinas ni Antartida para los calculos, por falta de datos.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 
     <script src="js/jquery-2.0.3.min.js"></script>
     <script src='js/knockout-2.3.0.js'></script>

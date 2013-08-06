@@ -1,4 +1,4 @@
-d3.populationMap = function(containerId,width) {
+d3.populationMap = function(containerId,width,data) {
 
   //Init vars
   var height=700,
@@ -20,8 +20,14 @@ d3.populationMap = function(containerId,width) {
     amba,
     mini_path,
     mini_provincias,
-    tooltip;
-  
+    tooltip,
+    extraInfo = d3.nest()
+                .key(function(d) { return d[1]; })
+                .map(data, d3.map),
+    color_scale = d3.scale.linear()
+      .domain([0, d3.max(data, function(d){ return Math.round(d[17]);})])
+      .range([1, 100]);
+
   function _init() {
     _createMap();
     _createTooltip();
@@ -59,6 +65,11 @@ d3.populationMap = function(containerId,width) {
   function _getName(e) {
     return e.replace(/\s+/g, "-").toLowerCase()
   };
+
+  function fillColorDepartamento(d){
+    var b = color_scale(extraInfo.get(d.id)[0][17]); 
+    return "rgb(100,100,"+(Math.round(255/Math.round(b)))+")"
+  }
 
   function _createPath() {
     var scale = d3.geo.mercator().scale(900).center([-65, -35]).translate([width / 2 - 30, height / 2 - 125]);
@@ -118,8 +129,10 @@ d3.populationMap = function(containerId,width) {
               .attr("id", function (e) {
                   return e.id;
               })
+              .style("fill", fillColorDepartamento)
+              .style("stroke", fillColorDepartamento)
               .attr("d", path)
-              .attr("class", "departamento")
+              .attr("class", "departamento free")
         });
 
         departamentos.select("g#provincia-buenos-aires")
@@ -134,8 +147,10 @@ d3.populationMap = function(containerId,width) {
           .attr("id", function (e) {
               return e.id
           })
+          .style("fill", fillColorDepartamento)
+          .style("stroke", fillColorDepartamento)
           .attr("d", path)
-          .attr("class", "departamento");
+          .attr("class", "departamento free");
 
         mapa_svg.append("circle")
           .attr("class", "parte-ampliada")
@@ -172,9 +187,10 @@ d3.populationMap = function(containerId,width) {
           .attr("id", function (e) {
               return e.id
           })
+          .style("fill", fillColorDepartamento)
+          .style("stroke", fillColorDepartamento)
           .attr("d", mini_path)
-          .attr("class", "departamento");
-
+          .attr("class", "departamento free");
 
         //Tooltip
         var m = mapa_svg.selectAll("path.departamento");
@@ -182,7 +198,10 @@ d3.populationMap = function(containerId,width) {
 
         function addTooltipListener(s) {
           s.on("mouseover", function(d) {
-              var innerHTML = d.properties.a + '<br/><strong>' + d.properties.p + '</strong>';        
+              var ha = extraInfo.get(d.id)[0][19],
+                  dp = extraInfo.get(d.id)[0][17];
+
+              var innerHTML = d.properties.a + '<br/><strong>' + d.properties.p + '</strong>' + '<br/>' + dotSeparateNumber(ha) + ' habitantes' + '<br/> Densidad: ' + dp.replace('.',',') + '';        
               tooltip.transition()        
                      .duration(100)      
                      .style("opacity", .9)
@@ -197,6 +216,16 @@ d3.populationMap = function(containerId,width) {
                       .style("opacity", 0);   
           });
         };
+
+
+
+        function dotSeparateNumber(val){
+            while (/(\d+)(\d{3})/.test(val.toString())){
+              val = val.toString().replace(/(\d+)(\d{3})/, '$1'+'.'+'$2');
+            }
+            return val;
+        }
+
 
         addTooltipListener(m);
 
@@ -214,29 +243,29 @@ d3.populationMap = function(containerId,width) {
       
       departamentos
         .selectAll('path')
-        .attr('class','departamento');
+        .attr('class','departamento free');
 
       departamentos
         .selectAll('path')
         .attr('class', function (d){
           if(areas.indexOf(d.id)>-1){
-            return 'departamento selected'; 
+            return 'departamento'; 
           } else {
-            return 'departamento';
+            return 'departamento free';
           }
         });
 
       amba
         .selectAll('path')
-        .attr('class','departamento');
+        .attr('class','departamento free');
 
       amba
         .selectAll('path')
         .attr('class', function (d){
           if(areas.indexOf(d.id)>-1){
-            return 'departamento selected'; 
+            return 'departamento'; 
           } else {
-            return 'departamento';
+            return 'departamento free';
           }
         });
 
