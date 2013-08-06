@@ -24,9 +24,11 @@ d3.populationMap = function(containerId,width,data) {
     extraInfo = d3.nest()
                 .key(function(d) { return d[1]; })
                 .map(data, d3.map),
-    color_scale = d3.scale.linear()
+    color_scale = d3.scale.quantile()
       .domain([0, d3.max(data, function(d){ return Math.round(d[17]);})])
-      .range([1, 100]);
+      .range(d3.range(9)),
+    color = d3.scale.category20(),
+    pad = d3.format("0ed");
 
   function _init() {
     _createMap();
@@ -66,9 +68,29 @@ d3.populationMap = function(containerId,width,data) {
     return e.replace(/\s+/g, "-").toLowerCase()
   };
 
-  function fillColorDepartamento(d){
-    var b = color_scale(extraInfo.get(d.id)[0][17]); 
-    return "rgb(100,100,"+(Math.round(255/Math.round(b)))+")"
+  function classColorDepartamento(d){
+    var b = color_scale(extraInfo.get(d.id)[0][17]);
+
+    return "departamento free q" + b + "-9";
+
+   /* return color(Math.round(extraInfo.get(d.id)[0][17]));
+
+    switch(Math.round(b)) {
+      case 0:
+        return '#157A8A' 
+      case 1:
+        return '#1BA1B6' 
+      break;
+      case 2:
+        return '#26C6DF' 
+      break;
+      case 3:
+        return '#68D7E8' 
+      break;
+      case 4:
+        return '#ABE8F2' 
+      break;
+    }*/
   }
 
   function _createPath() {
@@ -83,14 +105,13 @@ d3.populationMap = function(containerId,width,data) {
     d3.json(window.location.pathname+"data/argentina.json", function(error, e) {
 
         //mini mapa
-        mini_mapa_svg = mini_svg.append("g").classed("mini-mapa", !0);
+        mini_mapa_svg = mini_svg.append("g").classed("mini-mapa Blues", !0);
 
         //mapa
-        mapa_svg = svg.append("g").classed("mapa", !0).attr("transform", "translate(0, 20)");
+        mapa_svg = svg.append("g").classed("mapa Blues", !0).attr("transform", "translate(0, 20)");
         
         departamentos = mapa_svg.append("g").attr("class", "departamentos");
         provincias = mapa_svg.append("g").attr("class", "provincias");
-        legend = svg.append("g").attr("class", "legend");
         
         var featuresProvincias = topojson.feature(e, e.objects.provincias).features,
             featuresDepartamentos = topojson.feature(e, e.objects.departamentos).features;
@@ -129,10 +150,9 @@ d3.populationMap = function(containerId,width,data) {
               .attr("id", function (e) {
                   return e.id;
               })
-              .style("fill", fillColorDepartamento)
-              .style("stroke", fillColorDepartamento)
               .attr("d", path)
-              .attr("class", "departamento free")
+              //.attr("class", "departamento free")
+              .attr("class", classColorDepartamento)
         });
 
         departamentos.select("g#provincia-buenos-aires")
@@ -147,10 +167,8 @@ d3.populationMap = function(containerId,width,data) {
           .attr("id", function (e) {
               return e.id
           })
-          .style("fill", fillColorDepartamento)
-          .style("stroke", fillColorDepartamento)
           .attr("d", path)
-          .attr("class", "departamento free");
+          .attr("class", classColorDepartamento)
 
         mapa_svg.append("circle")
           .attr("class", "parte-ampliada")
@@ -187,10 +205,8 @@ d3.populationMap = function(containerId,width,data) {
           .attr("id", function (e) {
               return e.id
           })
-          .style("fill", fillColorDepartamento)
-          .style("stroke", fillColorDepartamento)
           .attr("d", mini_path)
-          .attr("class", "departamento free");
+          .attr("class", classColorDepartamento)
 
         //Tooltip
         var m = mapa_svg.selectAll("path.departamento");
@@ -243,30 +259,38 @@ d3.populationMap = function(containerId,width,data) {
       
       departamentos
         .selectAll('path')
-        .attr('class','departamento free');
+        .attr('class',function (d){
+          $(this)[0].classList.add("free");
+          return $(this)[0].classList.toString();
+        });
 
       departamentos
         .selectAll('path')
         .attr('class', function (d){
           if(areas.indexOf(d.id)>-1){
-            return 'departamento'; 
+            $(this)[0].classList.remove("free");
           } else {
-            return 'departamento free';
+            $(this)[0].classList.add("free");
           }
+          return $(this)[0].classList.toString();
         });
 
       amba
         .selectAll('path')
-        .attr('class','departamento free');
+        .attr('class',function (d){
+          $(this)[0].classList.add("free");
+          return $(this)[0].classList.toString();
+        });
 
       amba
         .selectAll('path')
         .attr('class', function (d){
           if(areas.indexOf(d.id)>-1){
-            return 'departamento'; 
+            $(this)[0].classList.remove("free");
           } else {
-            return 'departamento free';
+            $(this)[0].classList.add("free");
           }
+          return $(this)[0].classList.toString();
         });
 
     }
