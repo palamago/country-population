@@ -37,7 +37,11 @@ var CountryPopulation;
 
     CountryPopulation.$orderSelectors = $('.filter-order')
 
-    CountryPopulation.$fullScreenBtb = $('#full-screen-btn');
+    CountryPopulation.$fullScreenBtn = $('#full-screen-btn');
+
+    CountryPopulation.$upBtn = $('#arrow-up');
+
+    CountryPopulation.$downBtn = $('#arrow-down');
 
     CountryPopulation.bindings = {
         percentage:ko.observable(0),
@@ -112,7 +116,23 @@ var CountryPopulation;
         CountryPopulation.$twitterButton.on('click',CountryPopulation.shareTwitter);
         CountryPopulation.$facebookButton.on('click',CountryPopulation.shareFacebook);
         CountryPopulation.$googleButton.on('click',CountryPopulation.shareGoogle);
-        CountryPopulation.$fullScreenBtb.on('click',CountryPopulation.fullScreen);
+        CountryPopulation.$fullScreenBtn.on('click',CountryPopulation.fullScreen);
+
+        CountryPopulation.$upBtn.on('click',function(){CountryPopulation.moveSlider(-1);});
+        CountryPopulation.$downBtn.on('click',function(){CountryPopulation.moveSlider(1);});
+    };
+
+    //Revisar
+
+    CountryPopulation.moveSlider = function(oper) {
+        var newValue = parseInt(CountryPopulation.$slider.slider('getValue'))+oper;
+        CountryPopulation.$slider.slider('setValue', newValue);
+        CountryPopulation.$slider
+        .trigger({
+            type: 'slide',
+            value: parseInt(newValue)
+        });
+
     };
 
     CountryPopulation.fullScreen = function() {
@@ -251,7 +271,7 @@ var CountryPopulation;
         s.addClass('btn-inverse disabled').removeClass('btn-default');
 
         CountryPopulation.bindings.selectedOrder(s.text());
-        //CountryPopulation.$slider.slider('setValue', CountryPopulation.convertSliderValue(0));
+
         CountryPopulation.$slider
                 .trigger({
                     type: 'slide',

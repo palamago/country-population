@@ -359,6 +359,11 @@
 	};
 
 	$.fn.slider = function ( option, val ) {
+			var $this = $(this),
+				data = $this.data('slider');
+				if(option==="getValue") {
+					return data.value[0];
+				}
 		return this.each(function () {
 			var $this = $(this),
 				data = $this.data('slider'),
