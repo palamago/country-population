@@ -335,3 +335,14 @@ p.texto-resumen .important2{
 	border: 0;
 	background: #13191b
 }
+
+.modal-title {
+	color:#333;
+}
+
+.modal p {
+	text-transform: none;
+	font-size: 14px; color: #666;
+	text-shadow:none;
+	font-weight: normal;
+}
