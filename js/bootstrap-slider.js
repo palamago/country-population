@@ -18,14 +18,13 @@
  * ========================================================= */
  
 !function( $ ) {
-
 	var Slider = function(element, options) {
 		this.element = $(element);
 		this.picker = $('<div class="slider">'+
 							'<div class="slider-track">'+
 								'<div class="slider-selection"></div>'+
-								'<div class="slider-handle"></div>'+
-								'<div class="slider-handle"></div>'+
+								'<div class="slider-handle primero"></div>'+
+								'<div class="slider-handle segundo"></div>'+
 							'</div>'+
 							'<div class="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'+
 						'</div>')

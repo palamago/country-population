@@ -136,7 +136,7 @@
                       
                     </div>
                   </div>
-                  <a data-toggle="modal" href="#ayuda" class="btn btn-primary btn-lg"><i class="glyphicon glyphicon-info-sign"></i> Método</a>
+                  <a data-toggle="modal" href="#ayuda" class="btn btn-primary btn-lg"><i class="glyphicon glyphicon-info-sign"></i> Observaciones</a>
 
                 </div>
                 <div class="well disclaimer">
@@ -175,13 +175,18 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Método utilizado</h4>
+            <h4 class="modal-title">Observaciones</h4>
           </div>
           <div class="modal-body">
-            <p>Se asumo distribucion de poblacion pareja dentro del mismo departamento.</p>
-            <p>No se tiene en cuenta a Islas Malvinas ni Antartida para los calculos, por falta de datos.</p>
+            <ul>
+              <li>Construído con información del <a href="http://www.censo2010.indec.gov.ar/" target="_blank">Censo 2010</a> basado en la <a href="http://interactivos.lanacion.com.ar/censo/" target="_blank">aplicación interactiva</a> creada por el equipo de <a href="http://twitter.com/LNData" target="_blank">@LNData</a></li>
+              <li>Se asume distribución de población pareja dentro del mismo departamento.</li>
+              <li>No se tiene en cuenta a Islas Malvinas, Islas del Atlántico Sur, ni Antártida para los cálculos, por falta de datos.</li>
+              <li>Los valores calculados son aproximados.</li>
+            </ul>
           </div>
           <div class="modal-footer">
+            <a type="button" class="btn btn-danger pull-left" target="_blank" href="https://github.com/palamago/country-population/issues?state=open">Sugerencias</a>
             <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
           </div>
         </div><!-- /.modal-content -->

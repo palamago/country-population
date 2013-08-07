@@ -40,7 +40,7 @@ h2 {
 	font-weight: bold;
 	text-align:center;	padding-left: 0;padding-right:0;
 	font-size: 16px;
-		border: none 0!important;
+	border: none 0!important;
 
 }
 
@@ -109,7 +109,9 @@ p,small {
 }
 
 small {
-	text-transform: none
+	text-transform: nonede población pareja dentro del mismo departamento.
+No se tiene en cuenta a Islas Malvinas, Islas del Atlántico Sur, ni Antártida para los cálculos, por falta de datos.
+Los valores son calculad
 }
 /* MAP */
 svg{
@@ -340,7 +342,7 @@ p.texto-resumen .important2{
 	color:#333;
 }
 
-.modal p {
+.modal li {
 	text-transform: none;
 	font-size: 14px; color: #666;
 	text-shadow:none;

@@ -43,6 +43,8 @@ var CountryPopulation;
 
     CountryPopulation.$downBtn = $('#arrow-down');
 
+    CountryPopulation.$popover;
+
     CountryPopulation.bindings = {
         percentage:ko.observable(0),
         percentageTotal: 0,
@@ -105,7 +107,7 @@ var CountryPopulation;
             if(CountryPopulation.bindings.supSelected()===0)
                 return 0;
             var r = (CountryPopulation.bindings.cantSelected() / CountryPopulation.bindings.supSelected());
-            return ( r ).toFixed(3).replace('.',',');
+            return CountryPopulation.dotSeparateNumber(Math.round( r ));
         }, this);
         ko.applyBindings(CountryPopulation.bindings);
 
@@ -120,6 +122,18 @@ var CountryPopulation;
 
         CountryPopulation.$upBtn.on('click',function(){CountryPopulation.moveSlider(-1);});
         CountryPopulation.$downBtn.on('click',function(){CountryPopulation.moveSlider(1);});
+        $('.slider-handle.primero').on('mousedown',function(){$('.popover').fadeOut();});
+
+        //Open popover
+        CountryPopulation.$popover = $('.slider-handle.primero').popover({
+            animation:true,
+            html:true,
+            trigger:'manual',
+            content:'<p>Deslice el control verticalmente para ver cambios en el mapa.</p>',
+            title:'AYUDA'
+        })
+        .popover('show');
+
     };
 
     //Revisar
