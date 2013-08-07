@@ -88,7 +88,6 @@ d3.bargraph = function(containerId,width,dataRaw) {
     lines = groups.append("rect")
       .attr("width", function(d,i){
         var w = parseFloat(d[16]);
-        console.log(w);
         if (w<parseFloat(20))
           return x(20);
         return x(w);
@@ -140,7 +139,6 @@ d3.bargraph = function(containerId,width,dataRaw) {
 
   return {
     sort: function(type){
-      console.log('order' + type);
       switch(type){
         case 'ASCENDENTE':
           index.sort(function(a, b) { return Math.round(data[a][16]) - Math.round(data[b][16]); });
