@@ -338,11 +338,11 @@ p.texto-resumen .important2{
 	background: #13191b
 }
 
-.modal-title {
+.modal-title, .popover-title {
 	color:#333;
 }
 
-.modal li {
+.modal li,.popover-content p {
 	text-transform: none;
 	font-size: 14px; color: #666;
 	text-shadow:none;
