@@ -4,6 +4,9 @@ var CountryPopulation;
 
     "use strict";
 
+    //Fix strange bug using jquery2 and bootstra3
+    HTMLDivElement.prototype.remove = function(){};
+
     CountryPopulation = global.countrypopulation = global.countrypopulation || {};
 
 	CountryPopulation.$slider = $('#slider');
@@ -26,6 +29,8 @@ var CountryPopulation;
     CountryPopulation.data = [];
 
     CountryPopulation.map;
+
+    CountryPopulation.bars;
 
     CountryPopulation.$twitterButton = $('.twitter');
 
@@ -144,13 +149,13 @@ var CountryPopulation;
 
     CountryPopulation.moveSlider = function(oper) {
         $('.popover').fadeOut();
-        var newValue = parseInt(CountryPopulation.$slider.slider('getValue'));
-        if(newValue != 100 && newValue != 0 ){
-            CountryPopulation.$slider.slider('setValue', newValue+oper);
+        var newValue = parseInt(CountryPopulation.$slider.slider('getValue'))+oper;
+        if(newValue <= 100 && newValue >= 0 ){
+            CountryPopulation.$slider.slider('setValue', newValue);
             CountryPopulation.$slider
             .trigger({
                 type: 'slide',
-                value: parseInt(newValue+oper)
+                value: parseInt(newValue)
             });
         }
 
@@ -178,17 +183,17 @@ var CountryPopulation;
 
     CountryPopulation.retrieveData = function(){
         d3.text(window.location.pathname+"data/lanacion-censo.csv", function(datasetText) {
-          CountryPopulation.data = d3.csv.parseRows(datasetText);
-          CountryPopulation.headers = CountryPopulation.data[0];
-          CountryPopulation.addFilterOptions();
-          CountryPopulation.data = CountryPopulation.data.slice(1,CountryPopulation.data.length);
-          var total = 0,
-            superficie = 0,
-            filter = "Poblacion_Total_2010",
-            indexTotal = CountryPopulation.getHeaderIndex(filter),
-            indexSuperficie = CountryPopulation.getHeaderIndex('SUPERFICIE');
-          
-          CountryPopulation.data.forEach(function (e) {
+            CountryPopulation.data = d3.csv.parseRows(datasetText);
+            CountryPopulation.headers = CountryPopulation.data[0];
+            CountryPopulation.addFilterOptions();
+            CountryPopulation.data = CountryPopulation.data.slice(1,CountryPopulation.data.length);
+            var total = 0,
+                superficie = 0,
+                filter = "Poblacion_Total_2010",
+                indexTotal = CountryPopulation.getHeaderIndex(filter),
+                indexSuperficie = CountryPopulation.getHeaderIndex('SUPERFICIE');
+
+            CountryPopulation.data.forEach(function (e) {
             var n = parseInt(e[indexTotal]);
             if(!isNaN(n)){
               total = total + n;
@@ -197,13 +202,18 @@ var CountryPopulation;
             if(!isNaN(n)){
               superficie = superficie + n;
             }
-          });
-        CountryPopulation.bindings.poblacionTotal(total);
-        CountryPopulation.bindings.superficieTotal(Math.round(superficie/100000000000000000));
+            });
+            CountryPopulation.bindings.poblacionTotal(total);
+            CountryPopulation.bindings.superficieTotal(Math.round(superficie/100000000000000000));
 
-        //Init map
-        CountryPopulation.map = d3.populationMap('map-container',$('#map-container').width(),CountryPopulation.data);
+            //initial order
+            CountryPopulation.orderData();
 
+            //Init map
+            CountryPopulation.map = d3.populationMap('map-container',$('#map-container').width(),CountryPopulation.data);
+
+            //Init Bar Graph
+            CountryPopulation.bars = d3.bargraph('graph-container', $('#tab-resumen').width(),CountryPopulation.data);
 
         });
 
@@ -337,11 +347,11 @@ var CountryPopulation;
             if(!isNaN(test)) {
                 if(order==="DESCENDENTE"){
                     f = function(a,b){
-                        return parseFloat(b[index]) - parseFloat(a[index]);
+                        return Math.round(b[index]) - Math.round(a[index]);
                     };
                 }else if(order==="ASCENDENTE"){
                     f = function(a,b){
-                        return parseFloat(a[index]) - parseFloat(b[index]);
+                        return Math.round(a[index]) - Math.round(b[index]);
                     };
                 }
             } else {
@@ -354,6 +364,9 @@ var CountryPopulation;
 
 
             CountryPopulation.data.sort(f);
+            if(CountryPopulation.bars)
+                CountryPopulation.bars.sort(order);
+
         }
     };
 
@@ -385,6 +398,7 @@ var CountryPopulation;
 
     CountryPopulation.updateMap = function (localidadesIds) {
         CountryPopulation.map.update(localidadesIds);
+        CountryPopulation.bars.update(localidadesIds);
     };
 
     CountryPopulation.dotSeparateNumber = function(val){

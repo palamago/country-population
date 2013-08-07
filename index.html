@@ -69,8 +69,9 @@
           <div class="row-fluid">
             <div class="col-lg-12">
               <ul id="myTab" class="nav nav-tabs">
-                <li class="active coldale, abrazo-lg-6"><a href="#tab-resumen" data-toggle="tab">Resumen</a></li>
-                <li class="col-lg-6"><a href="#tab-data" data-toggle="tab">+ Datos</a></li>
+                <li class="active col-lg-4"><a href="#tab-resumen" data-toggle="tab">Resumen</a></li>
+                <li class="col-lg-4"><a href="#tab-data" data-toggle="tab">+ Datos</a></li>
+                <li class="col-lg-4"><a href="#tab-graph" data-toggle="tab">Gráfico</a></li>
               </ul>
               <div id="myTabContent" class="tab-content">
                 <div class="tab-pane fade active in" id="tab-resumen">
@@ -86,17 +87,6 @@
                     <a class="gplus popup" href="https://plus.google.com/share">
                       <img class="share-icon" src="img/g.svg" />
                     </a>
-                  </div>
-                  <div class="row-fluid">
-                    <div class="span12">
-                      <p>Orden de la selección</p>
-                      <div class="btn-group">
-                        <button data-toggle="tooltip" title="Ordena por Densidad de Población de forma ASCENDENTE" type="button" class="btn btn-default filter-order"><i class="glyphicon glyphicon-sort-by-attributes"></i> ASCENDENTE</button>
-                        <button data-toggle="tooltip" title="Ordena por Densidad de Población de forma DESCENDENTE" type="button" class="btn disabled btn-inverse filter-order"><i class="glyphicon glyphicon-sort-by-attributes-alt"></i> DESCENDENTE</button>
-                        <button data-toggle="tooltip" title="Ordena por Nombre de la Localidad ALFABÉTICAMENTE" type="button" class="btn btn-default filter-order"><i class="glyphicon glyphicon-sort-by-alphabet"></i> ALFABÉTICAMENTE</button>
-                      </div>
-                      
-                    </div>
                   </div>
                  </div>
                 <div class="tab-pane fade" id="tab-data">
@@ -138,6 +128,24 @@
 
                   <a data-toggle="modal" href="#ayuda" class="btn btn-primary btn-lg"><i class="glyphicon glyphicon-info-sign"></i> Observaciones</a>
 
+                </div>
+                <div class="tab-pane fade" id="tab-graph">
+                  <div class="row-fluid">
+                    <div class="span12">
+                      <div id="graph-container">
+                      </div>
+                    </div>
+                  </div>
+                 </div>
+                <div class="row-fluid">
+                  <div class="span12">
+                    <p>Orden de la selección</p>
+                    <div class="btn-group">
+                      <button data-toggle="tooltip" title="Ordena por Densidad de Población de forma ASCENDENTE" type="button" class="btn btn-default filter-order"><i class="glyphicon glyphicon-sort-by-attributes"></i> ASCENDENTE</button>
+                      <button data-toggle="tooltip" title="Ordena por Densidad de Población de forma DESCENDENTE" type="button" class="btn disabled btn-inverse filter-order"><i class="glyphicon glyphicon-sort-by-attributes-alt"></i> DESCENDENTE</button>
+                      <button data-toggle="tooltip" title="Ordena por Nombre de la Localidad ALFABÉTICAMENTE" type="button" class="btn btn-default filter-order"><i class="glyphicon glyphicon-sort-by-alphabet"></i> ALFABÉTICAMENTE</button>
+                    </div>
+                  </div>
                 </div>
                 <div class="well disclaimer">
                 <p class="text-center">Para la selección, se tiene en cuenta la "Densidad de población por departamento" del Censo 2010 de INDEC, en orden:</p><p class="text-center"><span class="filter-value" data-bind="text: selectedOrder"></span></p>
@@ -201,6 +209,7 @@
     <script src="js/topojson.v1.min.js"></script>
     <script src="js/d3.min.js"></script>
     <script src="js/d3.populationMap.js"></script>
+    <script src="js/d3.bargraph.js"></script>
     <script src="js/main.js"></script>
     
   </body>
