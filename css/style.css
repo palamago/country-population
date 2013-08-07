@@ -255,7 +255,7 @@ g.amba path.hover {
 
 .slider.slider-vertical {
 	height: 300px;
-	margin:0 20px 10px 20px;
+	margin:10px 24px 15px 24px;
 }
 
 .slider-selection {
@@ -347,4 +347,27 @@ p.texto-resumen .important2{
 	font-size: 14px; color: #666;
 	text-shadow:none;
 	font-weight: normal;
+}
+
+.plus-minus {
+	border: 2px solid #FFF;
+	color:#232a2d;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	line-height: 40px;
+	border-radius: 100px;
+	display: block;
+	margin: 5px auto;
+	background: #FFF;
+	position: relative;
+}
+
+.plus-minus:hover {
+	color:#232a2d;
+	text-decoration: none
+}
+
+.plus-minus:active {
+	top:1px;
 }
