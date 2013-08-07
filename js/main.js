@@ -140,13 +140,15 @@ var CountryPopulation;
 
     CountryPopulation.moveSlider = function(oper) {
         $('.popover').fadeOut();
-        var newValue = parseInt(CountryPopulation.$slider.slider('getValue'))+oper;
-        CountryPopulation.$slider.slider('setValue', newValue);
-        CountryPopulation.$slider
-        .trigger({
-            type: 'slide',
-            value: parseInt(newValue)
-        });
+        var newValue = parseInt(CountryPopulation.$slider.slider('getValue'));
+        if(newValue != 100 && newValue != 0 ){
+            CountryPopulation.$slider.slider('setValue', newValue+oper);
+            CountryPopulation.$slider
+            .trigger({
+                type: 'slide',
+                value: parseInt(newValue+oper)
+            });
+        }
 
     };
 
