@@ -139,6 +139,7 @@ var CountryPopulation;
     //Revisar
 
     CountryPopulation.moveSlider = function(oper) {
+        $('.popover').fadeOut();
         var newValue = parseInt(CountryPopulation.$slider.slider('getValue'))+oper;
         CountryPopulation.$slider.slider('setValue', newValue);
         CountryPopulation.$slider
