@@ -45,6 +45,8 @@ var CountryPopulation;
 
     CountryPopulation.$popover;
 
+    CountryPopulation.haveToOrder = true;
+
     CountryPopulation.bindings = {
         percentage:ko.observable(0),
         percentageTotal: 0,
@@ -72,6 +74,8 @@ var CountryPopulation;
         CountryPopulation.$slider
         .slider(CountryPopulation.sliderOptions)
         .on('slide',CountryPopulation.slideStopHandler);
+
+        CountryPopulation.$orderSelectors.tooltip();
 
         CountryPopulation.$slider.slider('setValue', CountryPopulation.convertSliderValue(0));
 
@@ -289,6 +293,8 @@ var CountryPopulation;
 
         CountryPopulation.bindings.selectedOrder(s.text());
 
+        CountryPopulation.haveToOrder = true;
+
         CountryPopulation.$slider
                 .trigger({
                     type: 'slide',
@@ -314,41 +320,41 @@ var CountryPopulation;
     };
 
     CountryPopulation.orderData = function () {
-        var filter =  'Poblacion_Densidad_2010',
-            index = CountryPopulation.getHeaderIndex(filter),
-            order = CountryPopulation.bindings.selectedOrder().toUpperCase().trim(),
-            f;
-       
-        var test = parseFloat(CountryPopulation.data[0][index]);
+        if(CountryPopulation.haveToOrder){
+            CountryPopulation.haveToOrder = false;
+            var filter =  'Poblacion_Densidad_2010',
+                index = CountryPopulation.getHeaderIndex(filter),
+                order = CountryPopulation.bindings.selectedOrder().toUpperCase().trim(),
+                f;
+           
+            if (order==="ALFABETICAMENTE"){
+                filter = "CABECERA";
+                index = CountryPopulation.getHeaderIndex(filter);
+            }
 
-        if(!isNaN(test)) {
-            if(order==="DESCENDENTE"){
-                f = function(a,b){
-                    return parseFloat(b[index]) - parseFloat(a[index]);
-                };
-            }else if(order==="ASCENDENTE"){
-                f = function(a,b){
-                    return parseFloat(a[index]) - parseFloat(b[index]);
-                };
-            }
-        } else {
-            if(order==="DESCENDENTE"){
+            var test = parseFloat(CountryPopulation.data[0][index]);
+
+            if(!isNaN(test)) {
+                if(order==="DESCENDENTE"){
+                    f = function(a,b){
+                        return parseFloat(b[index]) - parseFloat(a[index]);
+                    };
+                }else if(order==="ASCENDENTE"){
+                    f = function(a,b){
+                        return parseFloat(a[index]) - parseFloat(b[index]);
+                    };
+                }
+            } else {
                 f = function(a,b) {
-                    if (a[index] < b[index]) return -1;
-                    if (a[index] > b[index]) return 1;
-                    return 0;
-                };
-            }else if(order==="ASCENDENTE"){
-                f = function(a,b) {
-                    if (b[index] < a[index]) return -1;
-                    if (b[index] > a[index]) return 1;
+                    if (a[index].toUpperCase().replace('Ñ','N') < b[index].toUpperCase().replace('Ñ','N')) return -1;
+                    if (a[index].toUpperCase().replace('Ñ','N') > b[index].toUpperCase().replace('Ñ','N')) return 1;
                     return 0;
                 };
             }
+
+
+            CountryPopulation.data.sort(f);
         }
-
-
-        CountryPopulation.data.sort(f);
     };
 
     CountryPopulation.filterData = function () {
