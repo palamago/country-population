@@ -189,9 +189,10 @@ d3.populationMap = function(containerId,width,data) {
         function addTooltipListener(s) {
           s.on("mouseover", function(d) {
               var ha = extraInfo.get(d.id)[0][19],
-                  dp = extraInfo.get(d.id)[0][17];
+                  dp = extraInfo.get(d.id)[0][17],
+                  n = extraInfo.get(d.id)[0][8];
 
-              var innerHTML = d.properties.a + '<br/><strong>' + d.properties.p + '</strong>' + '<br/>' + dotSeparateNumber(ha) + ' habitantes' + '<br/> Densidad: ' + dp.replace('.',',') + '';        
+              var innerHTML = n + '<br/><strong>' + d.properties.p + '</strong>' + '<br/>' + dotSeparateNumber(ha) + ' habitantes' + '<br/> Densidad: ' + dp.replace('.',',') + '';        
               tooltip.transition()        
                      .duration(100)      
                      .style("opacity", .9)

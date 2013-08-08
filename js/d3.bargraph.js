@@ -31,7 +31,7 @@ d3.bargraph = function(containerId,width,dataRaw) {
   function _setScales(){
     //Scales
     x = d3.scale.linear()
-       .domain([0, d3.max(data, function(d){return Math.round(d[16]);})])
+       .domain([0, d3.max(data, function(d){return Math.round(d[17]);})])
        .range([0, width-left_width-padding_left]);
 
     y = d3.scale.ordinal()
@@ -87,7 +87,7 @@ d3.bargraph = function(containerId,width,dataRaw) {
     //create bars
     lines = groups.append("rect")
       .attr("width", function(d,i){
-        var w = parseFloat(d[16]);
+        var w = parseFloat(d[17]);
         if (w<parseFloat(20))
           return x(20);
         return x(w);
@@ -111,7 +111,7 @@ d3.bargraph = function(containerId,width,dataRaw) {
       .attr("dx", -5)
       .attr("dy", ".20em")
       .attr("text-anchor", "end")
-      .text(function(d){return d[16];});*/
+      .text(function(d){return d[8];});*/
 
     //names
    /* names = groups
@@ -122,7 +122,7 @@ d3.bargraph = function(containerId,width,dataRaw) {
       .attr("dx", left_width-10)
       .attr("dy", ".20em")
       .attr("text-anchor", "end")
-      .text(function(d){return d.name;});*/
+      .text(function(d){return d[8];});*/
 
   }
 
@@ -139,22 +139,34 @@ d3.bargraph = function(containerId,width,dataRaw) {
 
   return {
     sort: function(type){
+      var  f;
+      console.log(type);
       switch(type){
         case 'ASCENDENTE':
-          index.sort(function(a, b) { return Math.round(data[a][16]) - Math.round(data[b][16]); });
+          f = function(a,b){
+              if ( parseFloat(data[a][17]) < parseFloat(data[b][17]) ) return -1;
+              if ( parseFloat(data[a][17]) > parseFloat(data[b][17]) ) return 1;
+              return 0;
+          };
         break;
         case 'DESCENDENTE':
-          index.sort(function(a, b) { return Math.round(data[b][16]) - Math.round(data[a][16]); });
+          f = function(a,b){
+              if ( parseFloat(data[a][17]) > parseFloat(data[a][17]) ) return -1;
+              if ( parseFloat(data[a][17]) < parseFloat(data[a][17]) ) return 1;
+              return 0;
+          };
         break;
-        case 'ALFABETICAMENTE':
-          index.sort(function(a, b) { 
-            if(data[a].name < data[b].name) return -1;
-            if(data[a].name > data[b].name) return 1;
-            return 0;
-          });
+        case 'ALFABÉTICAMENTE':
+          f = function(a,b) {
+              if (data[a][8].toUpperCase().replace('Ñ','N') < data[b][8].toUpperCase().replace('Ñ','N')) return -1;
+              if (data[a][8].toUpperCase().replace('Ñ','N') > data[b][8].toUpperCase().replace('Ñ','N')) return 1;
+              return 0;
+          };
         break;
       }
 
+      index.sort(f);
+      
       _setScales();
       _createElements();
     },

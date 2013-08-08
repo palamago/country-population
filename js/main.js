@@ -30,7 +30,7 @@ var CountryPopulation;
 
     CountryPopulation.map;
 
-    CountryPopulation.bars;
+    CountryPopulation.bars = false;
 
     CountryPopulation.$twitterButton = $('.twitter');
 
@@ -337,7 +337,7 @@ var CountryPopulation;
                 order = CountryPopulation.bindings.selectedOrder().toUpperCase().trim(),
                 f;
            
-            if (order==="ALFABETICAMENTE"){
+            if (order==="ALFABÉTICAMENTE"){
                 filter = "CABECERA";
                 index = CountryPopulation.getHeaderIndex(filter);
             }
@@ -345,13 +345,17 @@ var CountryPopulation;
             var test = parseFloat(CountryPopulation.data[0][index]);
 
             if(!isNaN(test)) {
-                if(order==="DESCENDENTE"){
+                if(order==="ASCENDENTE"){
                     f = function(a,b){
-                        return Math.round(b[index]) - Math.round(a[index]);
+                        if ( parseFloat(a[index]) < parseFloat(b[index]) ) return -1;
+                        if ( parseFloat(a[index]) > parseFloat(b[index]) ) return 1;
+                        return 0;
                     };
-                }else if(order==="ASCENDENTE"){
+                }else if(order==="DESCENDENTE"){
                     f = function(a,b){
-                        return Math.round(a[index]) - Math.round(b[index]);
+                        if ( parseFloat(a[index]) > parseFloat(b[index]) ) return -1;
+                        if ( parseFloat(a[index]) < parseFloat(b[index]) ) return 1;
+                        return 0;
                     };
                 }
             } else {
@@ -362,10 +366,14 @@ var CountryPopulation;
                 };
             }
 
-
             CountryPopulation.data.sort(f);
-            if(CountryPopulation.bars)
-                CountryPopulation.bars.sort(order);
+
+            /*$.each(CountryPopulation.data,function(i,e){
+                console.log(e[8]);
+            });*/
+
+            /*if(CountryPopulation.bars)
+                CountryPopulation.bars.sort(order);*/
 
         }
     };
