@@ -181,6 +181,10 @@ g.amba path.selected {
 	stroke-width: 1px;
 }
 
+g.line-group rect.selected {
+	fill:#25c5de;
+}
+
 g.departamentos path.free,
 g.amba path.free {
 	stroke: #E1e1e1 !important;
@@ -373,4 +377,8 @@ p.texto-resumen .important2{
 
 .plus-minus:active {
 	top:1px;
+}
+
+.greeting-group{
+	fill:red;
 }

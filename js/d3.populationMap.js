@@ -68,31 +68,6 @@ d3.populationMap = function(containerId,width,data) {
     return e.replace(/\s+/g, "-").toLowerCase()
   };
 
-  function classColorDepartamento(d){
-    var b = color_scale(extraInfo.get(d.id)[0][17]);
-
-    return "departamento free q" + b + "-9";
-
-   /* return color(Math.round(extraInfo.get(d.id)[0][17]));
-
-    switch(Math.round(b)) {
-      case 0:
-        return '#157A8A' 
-      case 1:
-        return '#1BA1B6' 
-      break;
-      case 2:
-        return '#26C6DF' 
-      break;
-      case 3:
-        return '#68D7E8' 
-      break;
-      case 4:
-        return '#ABE8F2' 
-      break;
-    }*/
-  }
-
   function _createPath() {
     var scale = d3.geo.mercator().scale(900).center([-65, -35]).translate([width / 2 - 30, height / 2 - 125]);
     projection = scale;
@@ -151,8 +126,7 @@ d3.populationMap = function(containerId,width,data) {
                   return e.id;
               })
               .attr("d", path)
-              //.attr("class", "departamento free")
-              .attr("class", classColorDepartamento)
+              .attr("class", "departamento")
         });
 
         departamentos.select("g#provincia-buenos-aires")
@@ -168,7 +142,7 @@ d3.populationMap = function(containerId,width,data) {
               return e.id
           })
           .attr("d", path)
-          .attr("class", classColorDepartamento)
+          .attr("class", "departamento")
 
         mapa_svg.append("circle")
           .attr("class", "parte-ampliada")
@@ -206,7 +180,7 @@ d3.populationMap = function(containerId,width,data) {
               return e.id
           })
           .attr("d", mini_path)
-          .attr("class", classColorDepartamento)
+          .attr("class", "departamento")
 
         //Tooltip
         var m = mapa_svg.selectAll("path.departamento");
@@ -260,7 +234,7 @@ d3.populationMap = function(containerId,width,data) {
       departamentos
         .selectAll('path')
         .attr('class',function (d){
-          $(this)[0].classList.add("free");
+          $(this)[0].classList.remove("selected");
           return $(this)[0].classList.toString();
         });
 
@@ -268,9 +242,9 @@ d3.populationMap = function(containerId,width,data) {
         .selectAll('path')
         .attr('class', function (d){
           if(areas.indexOf(d.id)>-1){
-            $(this)[0].classList.remove("free");
+            $(this)[0].classList.add("selected");
           } else {
-            $(this)[0].classList.add("free");
+            $(this)[0].classList.remove("selected");
           }
           return $(this)[0].classList.toString();
         });
@@ -278,7 +252,7 @@ d3.populationMap = function(containerId,width,data) {
       amba
         .selectAll('path')
         .attr('class',function (d){
-          $(this)[0].classList.add("free");
+          $(this)[0].classList.remove("selected");
           return $(this)[0].classList.toString();
         });
 
@@ -286,9 +260,9 @@ d3.populationMap = function(containerId,width,data) {
         .selectAll('path')
         .attr('class', function (d){
           if(areas.indexOf(d.id)>-1){
-            $(this)[0].classList.remove("free");
+            $(this)[0].classList.add("selected");
           } else {
-            $(this)[0].classList.add("free");
+            $(this)[0].classList.remove("selected");
           }
           return $(this)[0].classList.toString();
         });
