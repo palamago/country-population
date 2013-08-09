@@ -243,8 +243,8 @@ var CountryPopulation;
         e.preventDefault();
         var qObj = {
             'text': CountryPopulation.$text.text(),
-            'related': 'palamago,lndata',
-            'hashtags': 'argentina,censo,paisFederal'
+            'related': 'palamago',
+            'hashtags': 'argentina,censo'
         };
 
         var qs = $.param(qObj);
@@ -269,7 +269,7 @@ var CountryPopulation;
         e.preventDefault();
         var qs = 
             '&p[url]='+window.location+
-            '&p[title]='+'Argentina, un país POCO federal...'+
+            '&p[title]='+'Argentina: vivimos juntos, demasiado...'+
             '&p[images][0]='+window.location+'img/share.png'+
             '&p[summary]='+CountryPopulation.$text.text();
 
