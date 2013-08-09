@@ -50,6 +50,8 @@ var CountryPopulation;
 
     CountryPopulation.$popover;
 
+    CountryPopulation.$popover2;
+
     CountryPopulation.haveToOrder = true;
 
     CountryPopulation.bindings = {
@@ -65,7 +67,7 @@ var CountryPopulation;
         availableFilters:ko.observable(),
         selectedFilter:ko.observable(),
         selectedOrder:ko.observable('DESCENDENTE'),
-        densidadSelected:0
+        departamentosSelected:ko.observable(0)
     };
 
     var FilterOption = function(name, id, icon) {
@@ -139,9 +141,23 @@ var CountryPopulation;
             html:true,
             trigger:'manual',
             content:'<p>Deslice el control verticalmente para ver cambios en el mapa.</p>',
-            title:'AYUDA'
+            title:'CONTROL'
         })
         .popover('show');
+
+        CountryPopulation.$popover2 = $('.accordion-heading').popover({
+            animation:true,
+            html:true,
+            trigger:'manual',
+            placement:'left',
+            content:'<p>Cambie el orden de los datos, para obtener distintos resultados.</p>',
+            title:'ORDEN'
+        })
+        .popover('show');
+
+        $('#accordionOrder').on('show.bs.collapse', function () {
+          $('.popover').fadeOut();
+        })
 
     };
 
@@ -405,6 +421,7 @@ var CountryPopulation;
     };
 
     CountryPopulation.updateMap = function (localidadesIds) {
+        CountryPopulation.bindings.departamentosSelected(localidadesIds.length);
         CountryPopulation.map.update(localidadesIds);
         CountryPopulation.bars.update(localidadesIds);
     };

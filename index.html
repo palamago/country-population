@@ -49,8 +49,6 @@
   </head>
 
   <body>
-
-
     <div class="container">
       <div id="main-container" class="row">
         <div class="col-lg-1">
@@ -70,9 +68,36 @@
             <div class="col-lg-12">
               <ul id="myTab" class="nav nav-tabs">
                 <li class="active col-lg-4"><a href="#tab-resumen" data-toggle="tab">Resumen</a></li>
-                <li class="col-lg-4"><a href="#tab-data" data-toggle="tab">+ Datos</a></li>
+                <li class="col-lg-4"><a class="tab-centro" href="#tab-data" data-toggle="tab">+ Datos</a></li>
                 <li class="col-lg-4"><a href="#tab-graph" data-toggle="tab">Gráfico</a></li>
               </ul>
+
+              <!-- filter -->
+                <div class="accordion" id="accordionOrder">
+                  <div class="accordion-group">
+                    <div class="accordion-heading">
+                      <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapseOrder">
+                        Criterio de orden seleccionado: <span data-bind="text: selectedOrder"></span>
+                      </a>
+                    </div>
+                    <div id="collapseOrder" class="accordion-body collapse">
+                      <div class="accordion-inner">
+                        <div class="row-fluid">
+                          <div class="span12">
+                            <div class="btn-group">
+                              <button data-toggle="tooltip" title="Ordena por Densidad de Población de forma ASCENDENTE" type="button" class="btn btn-default filter-order"><i class="glyphicon glyphicon-sort-by-attributes"></i> ASCENDENTE</button>
+                              <button data-toggle="tooltip" title="Ordena por Densidad de Población de forma DESCENDENTE" type="button" class="btn disabled btn-inverse filter-order"><i class="glyphicon glyphicon-sort-by-attributes-alt"></i> DESCENDENTE</button>
+                              <button data-toggle="tooltip" title="Ordena por Nombre de la Localidad ALFABÉTICAMENTE" type="button" class="btn btn-default filter-order"><i class="glyphicon glyphicon-sort-by-alphabet"></i> ALFABÉTICAMENTE</button>
+                            </div>
+                            <p class="text-left" style="margin-top:10px">Se utilizan los campos "Densidad de población por departamento" y "Nombre"</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <!-- filter -->
+
               <div id="myTabContent" class="tab-content">
                 <div class="tab-pane fade active in" id="tab-resumen">
                   <p class="texto-resumen">El <span class="important1" data-bind="text: percentageTotal"></span> de la población vive en el <span class="important2" data-bind="text: percentageSupSelected"></span> del territorio Argentino.</p>
@@ -88,8 +113,6 @@
                       <img class="share-icon" src="img/g.svg" />
                     </a>
                   </div>
-
-
                  </div>
                 <div class="tab-pane fade" id="tab-data">
                   <h3>Total Argentina</h3>
@@ -137,24 +160,16 @@
                     <div class="span12">
                       <div id="graph-container">
                       </div>
+                      <p class="text-center label-gran-porcentaje">población seleccionada</p>
+                      <p id="gran-porcentaje"><span data-bind="text: percentageTotal"></span></p>
+                      <p class="text-center label-total-localidades">departamentos seleccionados</p>
+                      <p id="total-localidades"><span data-bind="text: departamentosSelected"></span></p>
                     </div>
                   </div>
                  </div>
 
               </div>
 
-                  <div class="row-fluid">
-                    <div class="span12">
-                      <p>Orden de la selección</p>
-                      <div class="btn-group">
-                        <button data-toggle="tooltip" title="Ordena por Densidad de Población de forma ASCENDENTE" type="button" class="btn btn-default filter-order"><i class="glyphicon glyphicon-sort-by-attributes"></i> ASCENDENTE</button>
-                        <button data-toggle="tooltip" title="Ordena por Densidad de Población de forma DESCENDENTE" type="button" class="btn disabled btn-inverse filter-order"><i class="glyphicon glyphicon-sort-by-attributes-alt"></i> DESCENDENTE</button>
-                        <button data-toggle="tooltip" title="Ordena por Nombre de la Localidad ALFABÉTICAMENTE" type="button" class="btn btn-default filter-order"><i class="glyphicon glyphicon-sort-by-alphabet"></i> ALFABÉTICAMENTE</button>
-                      </div>
-                          <p class="text-center" style="margin-top:10px">Para la selección, se tiene en cuenta la "Densidad de población por departamento" del Censo 2010 de INDEC, en orden:</p>
-                    </div>
-                  </div>
-            
             </div>
           </div>
         </div>
@@ -165,7 +180,7 @@
           Programación: <a href="http://twitter.com/palamago" target="_blank">@palamago</a> | Diseño: <a href="http://twitter.com/abad" target="_blank">@abad</a>
         </p>
         <p class="text-center">
-          Construído con información del <a href="http://www.censo2010.indec.gov.ar/" target="_blank">Censo 2010</a> basado en la <a href="http://interactivos.lanacion.com.ar/censo/" target="_blank">aplicación interactiva</a> creada por el equipo de <a href="http://twitter.com/LNData" target="_blank">@LNData</a>
+          Construído con información del <a href="http://www.censo2010.indec.gov.ar/" target="_blank">Censo 2010</a> basado en la <a href="http://interactivos.lanacion.com.ar/censo/" target="_blank">aplicación interactiva</a> creada por el equipo de <a href="http://twitter.com/LNData" target="_blank">@LNData</a> | <a data-toggle="modal" href="#ayuda" ><i class="glyphicon glyphicon-info-sign"></i> Observaciones</a>
         </p>
       </div>
 
@@ -177,6 +192,8 @@
 
     <a id="full-screen-btn" class="btn btn-default btn-mini"><span class="glyphicon glyphicon-resize-full"></span>
     </a>
+
+<button style="position: absolute; top: 10px; left: 10px;" data-toggle="modal" href="#ayuda" class="btn btn-primary btn-xs"><i class="glyphicon glyphicon-info-sign"></i></a></button>
 
     <!-- Modal -->
     <div class="modal fade" id="ayuda">
@@ -191,6 +208,7 @@
               <li>Construído con información del <a href="http://www.censo2010.indec.gov.ar/" target="_blank">Censo 2010</a> basado en la <a href="http://interactivos.lanacion.com.ar/censo/" target="_blank">aplicación interactiva</a> creada por el equipo de <a href="http://twitter.com/LNData" target="_blank">@LNData</a></li>
               <li>Se asume distribución de población pareja dentro del mismo departamento.</li>
               <li>No se tiene en cuenta a Islas Malvinas, Islas del Atlántico Sur, ni Antártida para los cálculos, por falta de datos.</li>
+              <li>Para la selección, ordenado por ascendente o descendente, se tiene en cuenta la "Densidad de población por departamento". Por otra parte, se tiene en cuenta el "Nombre de Partida" para el orden alfabético del departamento.</li>
               <li>Los valores calculados son aproximados.</li>
             </ul>
           </div>

@@ -12,6 +12,7 @@ d3.bargraph = function(containerId,width,dataRaw) {
       padding_top = 30,
       padding_bottom = 5,
       padding_left = 5,
+      padding_right = 10,
       names,
       index,
       gap = 0,
@@ -32,7 +33,7 @@ d3.bargraph = function(containerId,width,dataRaw) {
     //Scales
     x = d3.scale.linear()
        .domain([0, d3.max(data, function(d){return Math.round(d[17]);})])
-       .range([0, width-left_width-padding_left]);
+       .range([0, width-left_width-padding_left-padding_right]);
 
     y = d3.scale.ordinal()
        .domain(index)
@@ -52,13 +53,12 @@ d3.bargraph = function(containerId,width,dataRaw) {
     xAxis = d3.svg.axis()
       .scale(x)
       .orient('top')
-      .tickSubdivide(1)
       .tickSize(5)
       .tickPadding(5);
 
     chart.append('g')
         .attr('class', 'x axis')
-        .attr('transform', 'translate('+left_width+', '+padding_top+')')
+        .attr('transform', 'translate('+left_width+', '+(padding_top-5)+')')
         .call(xAxis);
   }
 

@@ -33,7 +33,7 @@ h2 {
 }
 .nav-tabs {
 	border: 0 none!important;
-	margin: 30px auto;
+	margin: 30px auto 10px auto;
 	width: 300px
 }
 .nav-tabs>li  {
@@ -79,6 +79,10 @@ border-color: #FFF;
 }
 .nav-tabs>li a:hover  {
 	background: transparent;
+}
+
+.tab-centro{
+	border-radius: 0px !important;
 }
 
 .row-fluid {
@@ -182,7 +186,7 @@ g.amba path.selected {
 }
 
 g.line-group rect.selected {
-	fill:#25c5de;
+	fill:#A3C725;
 }
 
 g.departamentos path.free,
@@ -381,4 +385,63 @@ p.texto-resumen .important2{
 
 .greeting-group{
 	fill:red;
+}
+
+#graph-container g.axis{
+	stroke:#25C5DE;
+	fill:#25C5DE;
+}
+
+#accordionOrder .accordion-heading a{
+	text-align: center;
+	font-weight: bold;
+}
+
+#accordionOrder .accordion-heading a:hover{
+	text-decoration: none;
+}
+
+#accordionOrder .accordion-toggle {
+	background-color: white;
+	color: #232A2D;
+}
+
+#accordionOrder .collapsed {
+	background-color: transparent;
+	color:white;
+}
+
+#collapseOrder {
+	text-align: center;
+}
+
+#collapseOrder .row-fluid{
+	margin-bottom: 0px;
+}
+
+#collapseOrder .accordion-inner{
+	border: red;
+}
+
+#gran-porcentaje{
+	font-weight: bold;
+	color: #A3C725 !important;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3);
+	font-size: 100px;
+	text-align: center;
+	shape-rendering: 20px;
+}
+
+.label-gran-porcentaje{
+	padding-top: 100px;
+}
+
+#total-localidades{
+	text-align: center;
+	font-size: 70px;
+	color: #F7489E !important;
+}
+
+.label-total-localidades{
+	padding-top: 60px;
 }

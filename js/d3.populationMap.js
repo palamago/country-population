@@ -101,7 +101,6 @@ d3.populationMap = function(containerId,width,data) {
           .attr("d", path)
           .attr("class", "provincia");
   
-
         gran_buenos_aires = departamentos.append("g")
           .attr("class", "gran-buenos-aires");
 
